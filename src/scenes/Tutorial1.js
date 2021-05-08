@@ -1,7 +1,7 @@
-class Tutorial extends Phaser.Scene {
+class Tutorial1 extends Phaser.Scene {
     constructor()
     {
-        super('tutorialLevelNew');
+        super('tutorialLevelOld');
     }
 
     preload()
@@ -24,7 +24,7 @@ class Tutorial extends Phaser.Scene {
         //change Time
         if(Phaser.Input.Keyboard.JustDown(switchTimeKey))
         {
-            this.changeTime();
+            this.changeTime()
         }
     }
 
@@ -32,6 +32,6 @@ class Tutorial extends Phaser.Scene {
     {
         playerX = this.player.x;
         playerY = this.player.y;
-        this.scene.start("tutorialLevelOld");
+        this.scene.start("tutorialLevelNew")
     }
 }
