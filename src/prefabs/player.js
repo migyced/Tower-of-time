@@ -29,4 +29,9 @@ class Player extends Phaser.Physics.Arcade.Sprite
             //this.setDragX(this.DRAG);
         }
     }
+
+    climb()
+    {
+        this.setVelocityY(-MAX_WALK_SPEED);
+    }
 }

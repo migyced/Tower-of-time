@@ -22,8 +22,8 @@ let isPast = false;
 
 //Save player location
 let playerX = 200;
-let playerY = 200;
+let playerY = 400;
 
 //control input
-let leftKey, rightKey;
+let leftKey, rightKey, climbKey;
 
