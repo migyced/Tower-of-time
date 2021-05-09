@@ -7,6 +7,7 @@ class Player extends Phaser.Physics.Arcade.Sprite
         this.scene.physics.add.existing(this);
         this.setCollideWorldBounds(true);
         this.allowGravity = true;
+        this.climbing = false;
 
         //physics settings
         this.DRAG = 500;

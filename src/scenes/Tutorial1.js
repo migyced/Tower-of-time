@@ -39,7 +39,7 @@ class Tutorial1 extends Phaser.Scene {
         //change Time
         if(Phaser.Input.Keyboard.JustDown(switchTimeKey))
         {
-            this.changeTime()
+            this.changeTime();
         }
     }
 
@@ -47,6 +47,6 @@ class Tutorial1 extends Phaser.Scene {
     {
         playerX = this.player.x;
         playerY = this.player.y;
-        this.scene.start("tutorialLevelNew")
+        this.scene.start("tutorialLevelNew");
     }
 }

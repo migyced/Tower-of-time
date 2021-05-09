@@ -1,7 +1,7 @@
-class LevelOne extends Phaser.Scene {
+class LevelOnePast extends Phaser.Scene {
     constructor()
     {
-        super('levelOne');
+        super('levelOnePast');
     }
 
     preload()
@@ -9,13 +9,12 @@ class LevelOne extends Phaser.Scene {
         this.load.image("player", "assets/testplayer.png");
         this.load.image("plain", "assets/testplain.png");
         
-
     }
 
     create()
     {
-        console.log("Present! LV1");
-        this.hexColor = new Phaser.Display.Color(25, 50, 180);
+        console.log("Past! LV1");
+        this.hexColor = new Phaser.Display.Color(255, 85, 0);
         //add gravity
         this.physics.world.gravity.y = 1000;
         //add player
@@ -95,6 +94,6 @@ class LevelOne extends Phaser.Scene {
     {
         playerX = this.player.x;
         playerY = this.player.y;
-        this.scene.start("levelOnePast");
+        this.scene.start("levelOne");
     }
 }
