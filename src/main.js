@@ -2,7 +2,7 @@ let config = {
     type: Phaser.CANVAS,
     width: 960,
     height:640,
-    scene: [LevelOne, LevelOnePast],
+    scene: [Tutorial, Tutorial1, LevelOne, LevelOnePast],
     physics: {
         default: 'arcade',
         arcade: {

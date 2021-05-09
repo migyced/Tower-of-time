@@ -55,8 +55,6 @@ class Tutorial1 extends Phaser.Scene {
         if(Phaser.Input.Keyboard.JustDown(switchTimeKey))
         {
             this.changeTime();
-<<<<<<< HEAD
-=======
         }
         if(this.physics.overlap(this.player, this.ladder1) && climbKey.isDown)
         {
@@ -67,7 +65,6 @@ class Tutorial1 extends Phaser.Scene {
         else
         {
             this.player.body.setAllowGravity(true);
->>>>>>> 2c68f4bd32a9a9af636a66524eed0dec6dcc00f3
         }
     }
 
