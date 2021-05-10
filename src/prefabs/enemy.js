@@ -10,10 +10,14 @@ class Enemy extends Phaser.Physics.Arcade.Sprite
         if(direction)
         {
             this.walkSpeed = 3;
+            //DEBUG ONLY
+            //this.walkSpeed = 1;
         }
         else
         {
             this.walkSpeed = -3;
+            //DEBUG ONLY
+            //this.walkSpeed = -1;
         }
         
         this.maxX = 0;
