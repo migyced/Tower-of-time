@@ -16,21 +16,31 @@ class Tutorial extends Phaser.Scene {
         console.log("Present!");
 
         //add plain
-        this.plain1 = this.add.tileSprite(0, 540, 960, 100, "plain").setOrigin(0);
+        this.plain1 = this.add.tileSprite(0, 530, game.config.width, 50, "plain").setOrigin(0);
         this.physics.add.existing(this.plain1);
         this.plain1.body.setAllowGravity(false);
         this.plain1.body.immovable = true;
 
-        this.plain2 = this.add.tileSprite(32, 300, 960, 100, "plain").setOrigin(0);
+        this.plain2 = this.add.tileSprite(32, 330, game.config.width, 50, "plain").setOrigin(0);
         this.physics.add.existing(this.plain2);
         this.plain2.body.setAllowGravity(false);
         this.plain2.body.immovable = true;
 
+        this.plain3 = this.add.tileSprite(0, 130, game.config.width - 32, 50, "plain").setOrigin(0);
+        this.physics.add.existing(this.plain3);
+        this.plain3.body.setAllowGravity(false);
+        this.plain3.body.immovable = true;
+
         //add ladder
-        this.ladder1 = this.add.tileSprite(0, 300, 32, 240, "ladder").setOrigin(0);
+        this.ladder1 = this.add.tileSprite(0, 330, 32, 200, "ladder").setOrigin(0);
         this.physics.add.existing(this.ladder1);
         this.ladder1.body.setAllowGravity(false);
         this.ladder1.body.immovable = true;
+
+        this.ladder2 = this.add.tileSprite(game.config.width - 32, 130, 32, 200, "ladder").setOrigin(0);
+        this.physics.add.existing(this.ladder2);
+        this.ladder2.body.setAllowGravity(false);
+        this.ladder2.body.immovable = true;
 
         //add gravity
         this.physics.world.gravity.y = 1000;
@@ -44,8 +54,7 @@ class Tutorial extends Phaser.Scene {
         climbKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
 
         //add collider
-        this.physics.add.collider(this.player, this.plain1);
-        this.physics.add.collider(this.player, this.plain2);
+        this.physics.add.collider(this.player, [this.plain1, this.plain2, this.plain3]);
     }
 
     update()
@@ -56,7 +65,7 @@ class Tutorial extends Phaser.Scene {
         {
             this.changeTime();
         }
-        if(this.physics.overlap(this.player, this.ladder1) && climbKey.isDown)
+        if(this.physics.overlap(this.player, [this.ladder1, this.ladder2]) && climbKey.isDown)
         {
             console.log("overlap");
             this.player.climb();

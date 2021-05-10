@@ -1,7 +1,7 @@
 let config = {
     type: Phaser.CANVAS,
     width: 960,
-    height:640,
+    height:720,
     scene: [Tutorial, Tutorial1, LevelOne, LevelOnePast],
     physics: {
         default: 'arcade',
@@ -26,4 +26,8 @@ let playerY = 400;
 
 //control input
 let leftKey, rightKey, climbKey;
+
+//Inventory variable
+let hasKey = false;
+let hasSeed = false;
 
