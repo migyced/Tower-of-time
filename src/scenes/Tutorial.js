@@ -9,11 +9,35 @@ class Tutorial extends Phaser.Scene {
         this.load.image("player", "assets/testplayer.png");
         this.load.image("plain", "assets/testplain.png");
         this.load.image("ladder", "assets/testladder.png");
+        this.load.image("inventory", "assets/testInventory.png");
+        this.load.image("key", "assets/testKey.png");
+        this.load.image("door", "assets/testdoor.png");
+        this.load.image("enemy", "assets/testenemy.png");
     }
 
     create()
     {
         console.log("Present!");
+        //add inventory
+        this.inventory = this.add.sprite(game.config.width / 2 - 100, game.config.height - 70, "inventory");
+
+        //add Key
+        this.ikey = this.add.sprite(game.config.width / 2 - 90, game.config.height - 70, "key");
+        this.key = this.physics.add.sprite(100, 100, "key");
+        this.key.body.setAllowGravity(false);
+
+        if(inventory.checkItem("key"))
+        {
+            this.ikey.alpha = 1;
+            this.key.alpha = 0;
+        }
+        else
+        {
+            this.ikey.alpha = 0;
+            this.key.alpha = 1;
+        }
+
+        
 
         //add plain
         this.plain1 = this.add.tileSprite(0, 530, game.config.width, 50, "plain").setOrigin(0);
@@ -42,16 +66,22 @@ class Tutorial extends Phaser.Scene {
         this.ladder2.body.setAllowGravity(false);
         this.ladder2.body.immovable = true;
 
+
         //add gravity
         this.physics.world.gravity.y = 1000;
         //add player
         this.player = new Player(this, playerX, playerY, "player");
+
+        //add enemy
+        this.enemy1 = new Enemy(this, enemy1X, enemy1Y, "enemy");
+        this.enemy1.setPartrol(50, 700);
 
         //Handle Input
         switchTimeKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         leftKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         rightKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
         climbKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
+        interactKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
 
         //add collider
         this.physics.add.collider(this.player, [this.plain1, this.plain2, this.plain3]);
@@ -60,11 +90,13 @@ class Tutorial extends Phaser.Scene {
     update()
     {
         this.player.update();
+        this.enemy1.update();
         //change Time
         if(Phaser.Input.Keyboard.JustDown(switchTimeKey))
         {
             this.changeTime();
         }
+        //climb check
         if(this.physics.overlap(this.player, [this.ladder1, this.ladder2]) && climbKey.isDown)
         {
             console.log("overlap");
@@ -75,12 +107,45 @@ class Tutorial extends Phaser.Scene {
         {
             this.player.body.setAllowGravity(true);
         }
+
+        //check enemy collision
+        if(this.physics.overlap(this.player, this.enemy1))
+        {
+            this.Restart();
+            this.player.x = L0StartX;
+            this.player.y = L0StartY;
+        }
+
+        //pickup key
+        if(this.physics.overlap(this.player, this.key) && Phaser.Input.Keyboard.JustDown(interactKey))
+        {
+            inventory.addItem("key");
+            this.ikey.alpha = 1;
+            this.key.alpha = 0;
+        }
     }
 
     changeTime()
     {
         playerX = this.player.x;
         playerY = this.player.y;
+        enemy1X = this.enemy1.x;
+        enemy1Y = this.enemy1.y;
+        if(this.enemy1.walkSpeed > 0)
+        {
+            direction = true;
+        }
+        else
+        {
+            direction = false;
+        }
         this.scene.start("tutorialLevelOld");
+    }
+
+    Restart()
+    {
+        inventory.Clear();
+        this.ikey.alpha = 0;
+        this.key.alpha = 1;
     }
 }

@@ -21,13 +21,21 @@ let switchTimeKey;
 let isPast = false;
 
 //Save player location
+let L0StartX = 200;
+let L0StartY = 450;
 let playerX = 200;
-let playerY = 400;
+let playerY = 450;
+
+//Save enemy location
+let direction = true;
+let L0StartX1 = 50;
+let L0StartY1 = 95;
+let enemy1X = 50;
+let enemy1Y = 95;
 
 //control input
-let leftKey, rightKey, climbKey;
+let leftKey, rightKey, climbKey, interactKey;
 
 //Inventory variable
-let hasKey = false;
-let hasSeed = false;
+let inventory = new Inventory();
 
