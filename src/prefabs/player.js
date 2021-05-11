@@ -8,7 +8,7 @@ class Player extends Phaser.Physics.Arcade.Sprite
         this.setCollideWorldBounds(true);
         this.allowGravity = true;
         this.climbing = false;
-
+        this.firstTurn = 0;
         //physics settings
         this.DRAG = 500;
         //this.acceleration = 500;
@@ -19,10 +19,12 @@ class Player extends Phaser.Physics.Arcade.Sprite
         if(rightKey.isDown)
         {
             this.setVelocityX(MAX_WALK_SPEED);
+            this.flipX = false;
         }
         else if(leftKey.isDown)
         {
             this.setVelocityX(-MAX_WALK_SPEED);
+            this.flipX = true;
         }
         else
         {

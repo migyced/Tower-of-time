@@ -2,6 +2,7 @@ class LevelOne extends Phaser.Scene {
     constructor()
     {
         super('levelOne');
+        seedIsPlanted = false;
     }
 
     preload()
@@ -12,31 +13,31 @@ class LevelOne extends Phaser.Scene {
         this.load.image("inventory", "assets/testInventory.png");
         this.load.image("key", "assets/testKey.png");
         this.load.image("door", "assets/testdoor.png");
+        this.load.image("seed", "assets/testseed.png");
+        this.load.image("tree", "assets/testtree.png");
     }
 
     create()
     {
         console.log("Present! LV1");
         this.hexColor = new Phaser.Display.Color(25, 50, 180);
+        //text config
+        let infoConfig = {
+            fontFamily: 'Courier',
+            fontSize: '20px',
+            color: '#FFFFFF'
+        }
         //add gravity
         this.physics.world.gravity.y = 1000;
-        //add key
-        this.ikey = this.add.sprite(game.config.width / 2 - 90, game.config.height - 70, "key");
-        this.key = this.physics.add.sprite(50, 50, "key");
-        this.key.body.setAllowGravity(false);
-
-        if(inventory.checkItem("key"))
-        {
-            this.ikey.alpha = 1;
-            this.key.alpha = 0;
-        }
-        else
-        {
-            this.ikey.alpha = 0;
-            this.key.alpha = 1;
-        }
+        
         //add player
         this.player = new Player(this, playerX, playerY, "player");
+        //tree
+        this.tree = this.add.tileSprite(180, 20, 300, 520, "tree").setOrigin(0);
+        this.physics.add.existing(this.tree);
+        this.tree.body.setAllowGravity(false);
+        this.tree.body.immovable = true;
+        this.tree.alpha = 0;
         //add platforms
             //bottom left
         this.platform1 = this.add.tileSprite(0, 400, 80, 50, "plain").setOrigin(0);
@@ -145,6 +146,36 @@ class LevelOne extends Phaser.Scene {
         //add door
         this.door = this.physics.add.sprite(750, 25, "door").setOrigin(0);
         this.door.body.setAllowGravity(false);
+        //add key
+        this.ikey = new Item(this, game.config.width / 2 - 90, game.config.height - 70, "key", 0, "ikey", false);
+        this.key = new Item(this, 50, 60, "key", 0, "key", false);
+        this.key.body.setAllowGravity(false);
+
+        if(inventory.checkItem("key"))
+        {
+            this.ikey.Reset();
+            this.key.pickup();
+        }
+        else
+        {
+            this.key.Reset();
+            this.ikey.pickup();
+        }
+        //add seed
+        this.iseed = new Item(this, game.config.width / 2 - 15, game.config.height - 70, "seed", 0, "iseed", false);
+        //this.seed = new Item(this, 200, 210, "key", 0, "seed", false);
+        //this.seed.body.setAllowGravity(false);
+
+        if(inventory.checkItem("seed"))
+        {
+            this.iseed.Reset();
+            //this.seed.pickup();
+        }
+        else
+        {
+            this.iseed.pickup();
+            //this.seed.Reset();
+        }
     }
 
     update()
@@ -178,7 +209,22 @@ class LevelOne extends Phaser.Scene {
         if(this.physics.overlap(this.player, this.door) && Phaser.Input.Keyboard.JustDown(interactKey) && inventory.checkItem("key"))
         {
             inventory.Clear();
-            this.scene.start("levelOne");
+            seedIsPlanted = false;
+            this.scene.start("tutorialLevelNew");
+        }
+        if(seedIsPlanted)
+        {
+            this.tree.alpha = 1;
+            if(this.physics.overlap(this.player, this.tree) && climbKey.isDown)
+            {
+                console.log("overlap");
+                this.player.climb();
+                this.player.body.setAllowGravity(false);
+            }
+            else
+            {
+                this.player.body.setAllowGravity(true);
+            }
         }
     }
 

@@ -17,12 +17,6 @@ class Tutorial1 extends Phaser.Scene {
     create()
     {
         console.log("Past!");
-        //text config
-        let infoConfig = {
-            fontFamily: 'Courier',
-            fontSize: '20px',
-            color: '#FFFFFF'
-        }
         //add inventory
         this.inventory = this.add.sprite(game.config.width / 2 - 100, game.config.height - 70, "inventory");
         //add Key
@@ -66,10 +60,6 @@ class Tutorial1 extends Phaser.Scene {
         //add door
         this.door = this.physics.add.sprite(0, 55, "door").setOrigin(0);
         this.door.body.setAllowGravity(false);
-
-        //add instrunction text
-        this.add.text(game.config.width / 2 - 150, game.config.height - 470, "Time can affect environment", infoConfig).setOrigin(0);
-        this.add.text(game.config.width / 2 - 200, 50, "Your inventory can travel through time", infoConfig).setOrigin(0);
 
         //add enemy
         this.enemy1 = new Enemy(this, enemy1X, enemy1Y, "enemy");

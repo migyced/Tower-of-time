@@ -39,3 +39,6 @@ let leftKey, rightKey, climbKey, interactKey;
 //Inventory variable
 let inventory = new Inventory();
 
+//level 1 - seed is planted variable
+var seedIsPlanted = false;
+

@@ -12,12 +12,20 @@ class LevelOnePast extends Phaser.Scene {
         this.load.image("inventory", "assets/testInventory.png");
         this.load.image("key", "assets/testKey.png");
         this.load.image("door", "assets/testdoor.png");
+        this.load.image("seed", "assets/testseed.png");
+
     }
 
     create()
     {
         console.log("Past! LV1");
         this.hexColor = new Phaser.Display.Color(255, 85, 0);
+        //text config
+        let infoConfig = {
+            fontFamily: 'Courier',
+            fontSize: '20px',
+            color: '#FFFFFF'
+        }
         //add gravity
         this.physics.world.gravity.y = 1000;
         
@@ -129,17 +137,34 @@ class LevelOnePast extends Phaser.Scene {
         //add door
         this.door = this.physics.add.sprite(750, 25, "door").setOrigin(0);
         this.door.body.setAllowGravity(false);
-        //add key
-        this.ikey = this.add.sprite(game.config.width / 2 - 90, game.config.height - 70, "key");
         //add inventory
         this.inventory = this.add.sprite(game.config.width / 2 - 100, game.config.height - 70, "inventory");
+        //add key
+        this.ikey = new Item(this, game.config.width / 2 - 90, game.config.height - 70, "key", 0, "ikey", false);
         if(inventory.checkItem("key"))
         {
-            this.ikey.alpha = 1;
+            this.ikey.Reset();
+            //this.key.pickup();
         }
         else
         {
-            this.ikey.alpha = 0;
+            //this.key.Reset();
+            this.ikey.pickup();
+        }
+        //add seed
+        this.iseed = new Item(this, game.config.width / 2 - 15, game.config.height - 70, "seed", 0, "iseed", false);
+        this.seed = new Item(this, 200, 210, "seed", 0, "seed", false);
+        this.seed.body.setAllowGravity(false);
+
+        if(inventory.checkItem("seed"))
+        {
+            this.iseed.Reset();
+            this.seed.pickup();
+        }
+        else
+        {
+            this.iseed.pickup();
+            this.seed.Reset();
         }
     }
 
@@ -170,11 +195,25 @@ class LevelOnePast extends Phaser.Scene {
             inventory.addItem("key");
             this.ikey.alpha = 1;
         }
+        //pickup seed
+        if(this.physics.overlap(this.player, this.seed) && Phaser.Input.Keyboard.JustDown(interactKey))
+        {
+            inventory.addItem("seed");
+            this.seed.alpha = 0;
+            this.iseed.alpha = 1;
+        }
         //Open door
         if(this.physics.overlap(this.player, this.door) && Phaser.Input.Keyboard.JustDown(interactKey) && inventory.checkItem("key"))
         {
             inventory.Clear();
-            this.scene.start("levelOne");
+            this.scene.start("tutorialLevelNew");
+        }
+        //plant seed
+        if(this.player.x > 180 && this.player.x < 480 && this.player.y > 500 && Phaser.Input.Keyboard.JustDown(interactKey) && inventory.checkItem("seed"))
+        {
+            inventory.removeItem("seed");
+            this.iseed.alpha = 0;
+            seedIsPlanted = true;
         }
     }
 
