@@ -30,8 +30,6 @@ class LevelOne extends Phaser.Scene {
         //add gravity
         this.physics.world.gravity.y = 1000;
         
-        //add player
-        this.player = new Player(this, playerX, playerY, "player");
         //tree
         this.tree = this.add.tileSprite(180, 20, 300, 520, "tree").setOrigin(0);
         this.physics.add.existing(this.tree);
@@ -137,6 +135,9 @@ class LevelOne extends Phaser.Scene {
         climbKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
         interactKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
 
+        //add player
+        this.player = new Player(this, playerX, playerY, "player");
+        
         //add collider
         this.physics.add.collider(this.player, [this.plain1, this.platform1, this.platform1_1, this.platform2, this.platform2_1, this.platform3, this.platform3_1, this.platform4, this.platform4_1, this.platform5, this.platform5_1,this.platform6, this.platform6_1]);
         //camera effect

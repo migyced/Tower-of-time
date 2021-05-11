@@ -29,8 +29,6 @@ class LevelOnePast extends Phaser.Scene {
         //add gravity
         this.physics.world.gravity.y = 1000;
         
-        //add player
-        this.player = new Player(this, playerX, playerY, "player");
         //add platforms
             //bottom left
             this.platform1 = this.add.tileSprite(0, 400, 80, 50, "plain").setOrigin(0);
@@ -129,18 +127,30 @@ class LevelOnePast extends Phaser.Scene {
             rightKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
             climbKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
             interactKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
-    
+
+            //add seed
+            this.iseed = new Item(this, game.config.width / 2 - 15, game.config.height - 70, "seed", 0, "iseed", false);
+            this.seed = new Item(this, 200, 210, "seed", 0, "seed", false);
+            this.seed.body.setAllowGravity(false);
+
+            //add door
+            this.door = this.physics.add.sprite(750, 25, "door").setOrigin(0);
+            this.door.body.setAllowGravity(false);
+
+            //add key
+            this.ikey = new Item(this, game.config.width / 2 - 90, game.config.height - 70, "key", 0, "ikey", false);
+
+            //add player
+            this.player = new Player(this, playerX, playerY, "player");
+
             //add collider
             this.physics.add.collider(this.player, [this.plain1, this.platform1, this.platform1_1, this.platform2, this.platform2_1, this.platform3, this.platform3_1, this.platform4, this.platform4_1, this.platform5, this.platform5_1,this.platform6, this.platform6_1]);
         //
         //this.cameras.main.startFollow(this.player);
-        //add door
-        this.door = this.physics.add.sprite(750, 25, "door").setOrigin(0);
-        this.door.body.setAllowGravity(false);
+        
         //add inventory
         this.inventory = this.add.sprite(game.config.width / 2 - 100, game.config.height - 70, "inventory");
-        //add key
-        this.ikey = new Item(this, game.config.width / 2 - 90, game.config.height - 70, "key", 0, "ikey", false);
+        
         if(inventory.checkItem("key"))
         {
             this.ikey.Reset();
@@ -151,10 +161,7 @@ class LevelOnePast extends Phaser.Scene {
             //this.key.Reset();
             this.ikey.pickup();
         }
-        //add seed
-        this.iseed = new Item(this, game.config.width / 2 - 15, game.config.height - 70, "seed", 0, "iseed", false);
-        this.seed = new Item(this, 200, 210, "seed", 0, "seed", false);
-        this.seed.body.setAllowGravity(false);
+        
 
         if(inventory.checkItem("seed"))
         {
