@@ -22,19 +22,18 @@ class Tutorial extends Phaser.Scene {
         this.inventory = this.add.sprite(game.config.width / 2 - 100, game.config.height - 70, "inventory");
 
         //add Key
-        this.ikey = this.add.sprite(game.config.width / 2 - 90, game.config.height - 70, "key");
-        this.key = this.physics.add.sprite(100, 100, "key");
-        this.key.body.setAllowGravity(false);
+        this.ikey = new Item(this, game.config.width / 2 - 90, game.config.height - 70, "key", 0, "ikey", false);
+        this.key = new Item(this, 100, 100, "key", 0, "key", false);
 
         if(inventory.checkItem("key"))
         {
-            this.ikey.alpha = 1;
-            this.key.alpha = 0;
+            this.ikey.Reset();
+            this.key.pickup();
         }
         else
         {
-            this.ikey.alpha = 0;
-            this.key.alpha = 1;
+            this.key.Reset();
+            this.ikey.pickup();
         }
 
         

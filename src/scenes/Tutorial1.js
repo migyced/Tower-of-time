@@ -20,14 +20,14 @@ class Tutorial1 extends Phaser.Scene {
         //add inventory
         this.inventory = this.add.sprite(game.config.width / 2 - 100, game.config.height - 70, "inventory");
         //add Key
-        this.ikey = this.add.sprite(game.config.width / 2 - 90, game.config.height - 70, "key");
+        this.ikey = new Item(this, game.config.width / 2 - 90, game.config.height - 70, "key", 0, "ikey", false);
         if(inventory.checkItem("key"))
         {
-            this.ikey.alpha = 1;
+            this.ikey.Reset();
         }
         else
         {
-            this.ikey.alpha = 0;
+            this.ikey.pickup() = 0;
         }
 
         //add plain
