@@ -13,11 +13,19 @@ class Tutorial extends Phaser.Scene {
         this.load.image("key", "assets/testKey.png");
         this.load.image("door", "assets/testdoor.png");
         this.load.image("enemy", "assets/testenemy.png");
+        this.load.image("blocker", "assets/testblocker.png");
     }
 
     create()
     {
         console.log("Present!");
+        //text config
+        let infoConfig = {
+            fontFamily: 'Courier',
+            fontSize: '20px',
+            color: '#FFFFFF'
+        }
+
         //add inventory
         this.inventory = this.add.sprite(game.config.width / 2 - 100, game.config.height - 70, "inventory");
 
@@ -65,7 +73,17 @@ class Tutorial extends Phaser.Scene {
         this.ladder2.body.setAllowGravity(false);
         this.ladder2.body.immovable = true;
 
+        //add blocker
+        this.blocker1 = this.add.tileSprite(700, 170, 32, 180, "blocker").setOrigin(0);
+        this.physics.add.existing(this.blocker1);
+        this.blocker1.body.setAllowGravity(false);
+        this.blocker1.body.immovable = true;
 
+        //add instrunction text
+        this.add.text(game.config.width / 2 - 150, game.config.height - 250, "Use LEFT & RIGHT Key to Move", infoConfig).setOrigin(0);
+        this.add.text(50, game.config.height - 300, "Use Up Key to Climb", infoConfig).setOrigin(0);
+        this.add.text(game.config.width / 2 - 150, game.config.height - 470, "Press S to Change Time", infoConfig).setOrigin(0);
+        
         //add gravity
         this.physics.world.gravity.y = 1000;
         //add player
@@ -83,7 +101,7 @@ class Tutorial extends Phaser.Scene {
         interactKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
 
         //add collider
-        this.physics.add.collider(this.player, [this.plain1, this.plain2, this.plain3]);
+        this.physics.add.collider(this.player, [this.plain1, this.plain2, this.plain3, this.blocker1]);
     }
 
     update()
