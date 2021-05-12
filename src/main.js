@@ -2,7 +2,7 @@ let config = {
     type: Phaser.CANVAS,
     width: 960,
     height:720,
-    scene: [LevelOne, Tutorial, Tutorial1, LevelOnePast],
+    scene: [Menu, Tutorial, Tutorial1, LevelOne, LevelOnePast, End],
     physics: {
         default: 'arcade',
         arcade: {
@@ -35,7 +35,7 @@ let enemy1Y = 95;
 
 //control input
 let leftKey, rightKey, climbKey, interactKey;
-
+let startKey, menuKey;
 //Inventory variable
 let inventory = new Inventory();
 

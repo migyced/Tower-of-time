@@ -128,22 +128,6 @@ class LevelOne extends Phaser.Scene {
         this.plain1.body.setAllowGravity(false);
         this.plain1.body.immovable = true;
 
-        //Handle Input
-        switchTimeKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
-        leftKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
-        rightKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
-        climbKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
-        interactKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
-
-        //add player
-        this.player = new Player(this, playerX, playerY, "player");
-        
-        //add collider
-        this.physics.add.collider(this.player, [this.plain1, this.platform1, this.platform1_1, this.platform2, this.platform2_1, this.platform3, this.platform3_1, this.platform4, this.platform4_1, this.platform5, this.platform5_1,this.platform6, this.platform6_1]);
-        //camera effect
-        //this.cameras.main.startFollow(this.player);
-        //add inventory
-        this.inventory = this.add.sprite(game.config.width / 2 - 100, game.config.height - 70, "inventory");
         //add door
         this.door = this.physics.add.sprite(750, 25, "door").setOrigin(0);
         this.door.body.setAllowGravity(false);
@@ -151,6 +135,29 @@ class LevelOne extends Phaser.Scene {
         this.ikey = new Item(this, game.config.width / 2 - 90, game.config.height - 70, "key", 0, "ikey", false);
         this.key = new Item(this, 50, 60, "key", 0, "key", false);
         this.key.body.setAllowGravity(false);
+
+        //add seed
+        this.iseed = new Item(this, game.config.width / 2 - 15, game.config.height - 70, "seed", 0, "iseed", false);
+
+        //add player
+        this.player = new Player(this, playerX, playerY, "player");
+
+        //Handle Input
+        switchTimeKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+        leftKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
+        rightKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+        climbKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
+        interactKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
+
+        
+        
+        //add collider
+        this.physics.add.collider(this.player, [this.plain1, this.platform1, this.platform1_1, this.platform2, this.platform2_1, this.platform3, this.platform3_1, this.platform4, this.platform4_1, this.platform5, this.platform5_1,this.platform6, this.platform6_1]);
+        //camera effect
+        //this.cameras.main.startFollow(this.player);
+        //add inventory
+        this.inventory = this.add.sprite(game.config.width / 2 - 100, game.config.height - 70, "inventory");
+        
 
         if(inventory.checkItem("key"))
         {
@@ -162,8 +169,7 @@ class LevelOne extends Phaser.Scene {
             this.key.Reset();
             this.ikey.pickup();
         }
-        //add seed
-        this.iseed = new Item(this, game.config.width / 2 - 15, game.config.height - 70, "seed", 0, "iseed", false);
+        
         //this.seed = new Item(this, 200, 210, "key", 0, "seed", false);
         //this.seed.body.setAllowGravity(false);
 

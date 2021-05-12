@@ -17,6 +17,17 @@ class Tutorial1 extends Phaser.Scene {
     create()
     {
         console.log("Past!");
+        //text config
+        let infoConfig = {
+            fontFamily: 'Courier',
+            fontSize: '20px',
+            color: '#FFFFFF'
+        }
+
+        //add instrunction text
+        this.add.text(game.config.width / 2 - 225, 50, "Your inventory can travel through time!", infoConfig).setOrigin(0);
+        this.add.text(game.config.width / 2 - 150, game.config.height - 470, "Time will affect environment!", infoConfig).setOrigin(0);
+
         //add inventory
         this.inventory = this.add.sprite(game.config.width / 2 - 100, game.config.height - 70, "inventory");
         //add Key
