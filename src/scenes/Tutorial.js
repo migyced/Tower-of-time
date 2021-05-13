@@ -47,37 +47,16 @@ class Tutorial extends Phaser.Scene {
         
 
         //add plain
-        this.plain1 = this.add.tileSprite(0, 530, game.config.width, 50, "plain").setOrigin(0);
-        this.physics.add.existing(this.plain1);
-        this.plain1.body.setAllowGravity(false);
-        this.plain1.body.immovable = true;
-
-        this.plain2 = this.add.tileSprite(32, 330, game.config.width, 50, "plain").setOrigin(0);
-        this.physics.add.existing(this.plain2);
-        this.plain2.body.setAllowGravity(false);
-        this.plain2.body.immovable = true;
-
-        this.plain3 = this.add.tileSprite(0, 130, game.config.width - 32, 50, "plain").setOrigin(0);
-        this.physics.add.existing(this.plain3);
-        this.plain3.body.setAllowGravity(false);
-        this.plain3.body.immovable = true;
+        this.plain1 = new Background(this, 0, 530, game.config.width, 50, "plain", 0, false, true);
+        this.plain2 = new Background(this, 32, 330, game.config.width, 50, "plain", 0, false, true);
+        this.plain3 = new Background(this, 0, 130, game.config.width - 32, 50, "plain", 0, false, true);
 
         //add ladder
-        this.ladder1 = this.add.tileSprite(0, 330, 32, 200, "ladder").setOrigin(0);
-        this.physics.add.existing(this.ladder1);
-        this.ladder1.body.setAllowGravity(false);
-        this.ladder1.body.immovable = true;
-
-        this.ladder2 = this.add.tileSprite(game.config.width - 32, 130, 32, 200, "ladder").setOrigin(0);
-        this.physics.add.existing(this.ladder2);
-        this.ladder2.body.setAllowGravity(false);
-        this.ladder2.body.immovable = true;
+        this.ladder1 = new Background(this, 0, 330, 32, 200, "ladder", 0, false, true);
+        this.ladder2 = new Background(this, game.config.width - 32, 130, 32, 200, "ladder", 0, false, true);
 
         //add blocker
-        this.blocker1 = this.add.tileSprite(700, 170, 32, 180, "blocker").setOrigin(0);
-        this.physics.add.existing(this.blocker1);
-        this.blocker1.body.setAllowGravity(false);
-        this.blocker1.body.immovable = true;
+        this.blocker1 = new Background(this, 700, 170, 32, 180, "blocker", 0, false, true);
 
         //add instrunction text
         this.add.text(game.config.width / 2 - 150, game.config.height - 250, "Use LEFT & RIGHT Key to Move", infoConfig).setOrigin(0);

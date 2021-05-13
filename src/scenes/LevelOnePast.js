@@ -213,7 +213,7 @@ class LevelOnePast extends Phaser.Scene {
         if(this.physics.overlap(this.player, this.door) && Phaser.Input.Keyboard.JustDown(interactKey) && inventory.checkItem("key"))
         {
             inventory.Clear();
-            this.scene.start("tutorialLevelNew");
+            this.scene.start("endScene");
         }
         //plant seed
         if(this.player.x > 180 && this.player.x < 480 && this.player.y > 500 && Phaser.Input.Keyboard.JustDown(interactKey) && inventory.checkItem("seed"))
