@@ -217,7 +217,7 @@ class LevelOne extends Phaser.Scene {
         {
             inventory.Clear();
             seedIsPlanted = false;
-            this.scene.start("tutorialLevelNew");
+            this.scene.start("endScene");
         }
         if(seedIsPlanted)
         {
