@@ -17,6 +17,9 @@ class Tutorial1 extends Phaser.Scene {
     create()
     {
         console.log("Past!");
+        //add audio
+        this.timeTravel = this.sound.add("timeTravel");
+        this.hurt = this.sound.add("hurt");
         //text config
         let infoConfig = {
             fontFamily: 'Courier',
@@ -81,6 +84,7 @@ class Tutorial1 extends Phaser.Scene {
         //change Time
         if(Phaser.Input.Keyboard.JustDown(switchTimeKey))
         {
+            this.timeTravel.play();
             this.changeTime();
         }
         if(this.physics.overlap(this.player, [this.ladder1, this.ladder2]) && climbKey.isDown)

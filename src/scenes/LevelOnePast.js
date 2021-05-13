@@ -6,6 +6,10 @@ class LevelOnePast extends Phaser.Scene {
 
     preload()
     {
+        this.load.audio("hurt", "assets/hurt.wav");
+        this.load.audio("pickupKey", "assets/pickupKey.wav");
+        this.load.audio("pickupSeed", "assets/pickupSeed.wav");
+        this.load.audio("timeTravel", "assets/timeTravelSFX.wav");//delete audio preloads later
         this.load.image("player", "assets/testplayer.png");
         this.load.spritesheet("plain", "assets/testplain.png", {frameWidth: 32, frameHeight: 100, startFrame: 0, endFrame: 2});
         this.load.image("ladder", "assets/testladder.png");
@@ -20,6 +24,11 @@ class LevelOnePast extends Phaser.Scene {
     {
         console.log("Past! LV1");
         this.hexColor = new Phaser.Display.Color(255, 85, 0);
+        //add audio
+        this.timeTravel = this.sound.add("timeTravel");
+        this.hurt = this.sound.add("hurt");
+        this.pickupSeed = this.sound.add("pickupSeed");
+        this.pickupKey = this.sound.add("pickupKey");
         //text config
         let infoConfig = {
             fontFamily: 'Courier',
@@ -186,6 +195,7 @@ class LevelOnePast extends Phaser.Scene {
         //change Time
         if(Phaser.Input.Keyboard.JustDown(switchTimeKey))
         {
+            this.timeTravel.play();
             this.changeTime();
         }
         
@@ -204,12 +214,14 @@ class LevelOnePast extends Phaser.Scene {
         //pickup key
         if(this.physics.overlap(this.player, this.key) && Phaser.Input.Keyboard.JustDown(interactKey))
         {
+            this.pickupKey.play();
             inventory.addItem("key");
             this.ikey.alpha = 1;
         }
         //pickup seed
         if(this.physics.overlap(this.player, this.seed) && Phaser.Input.Keyboard.JustDown(interactKey))
         {
+            this.pickupSeed.play();
             inventory.addItem("seed");
             this.seed.alpha = 0;
             this.iseed.alpha = 1;
@@ -223,6 +235,7 @@ class LevelOnePast extends Phaser.Scene {
         //plant seed
         if(this.player.x > 180 && this.player.x < 480 && this.player.y > 500 && Phaser.Input.Keyboard.JustDown(interactKey) && inventory.checkItem("seed"))
         {
+            this.pickupSeed.play();
             inventory.removeItem("seed");
             this.iseed.alpha = 0;
             seedIsPlanted = true;

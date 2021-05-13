@@ -6,7 +6,10 @@ class Menu extends Phaser.Scene {
 
     preload()
     {
-
+        this.preload.audio("hurt", "assets/hurt.wav");
+        this.preload.audio("pickupKey", "assets/pickupKey.wav");
+        this.preload.audio("pickupSeed", "assets/pickupSeed.wav");
+        this.preload.audio("timeTravel", "assets/timeTravelSFX.wav");
     }
 
     create()

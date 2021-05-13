@@ -19,6 +19,10 @@ class Tutorial extends Phaser.Scene {
     create()
     {
         console.log("Present!");
+        //add audio
+        this.timeTravel = this.sound.add("timeTravel");
+        this.hurt = this.sound.add("hurt");
+        this.pickupKey = this.sound.add("pickupKey");
         //text config
         let infoConfig = {
             fontFamily: 'Courier',
@@ -90,6 +94,7 @@ class Tutorial extends Phaser.Scene {
         //change Time
         if(Phaser.Input.Keyboard.JustDown(switchTimeKey))
         {
+            this.timeTravel.play();
             this.changeTime();
         }
         //climb check
@@ -107,6 +112,7 @@ class Tutorial extends Phaser.Scene {
         //check enemy collision
         if(this.physics.overlap(this.player, this.enemy1))
         {
+            this.hurt.play();
             this.Restart();
             this.player.x = L0StartX;
             this.player.y = L0StartY;
@@ -115,6 +121,7 @@ class Tutorial extends Phaser.Scene {
         //pickup key
         if(this.physics.overlap(this.player, this.key) && Phaser.Input.Keyboard.JustDown(interactKey))
         {
+            this.pickupKey.play();
             inventory.addItem("key");
             this.ikey.alpha = 1;
             this.key.alpha = 0;

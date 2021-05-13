@@ -7,6 +7,10 @@ class LevelOne extends Phaser.Scene {
 
     preload()
     {
+        this.load.audio("hurt", "assets/hurt.wav");
+        this.load.audio("pickupKey", "assets/pickupKey.wav");
+        this.load.audio("pickupSeed", "assets/pickupSeed.wav");
+        this.load.audio("timeTravel", "assets/timeTravelSFX.wav");//delete audio preloads later
         this.load.image("player", "assets/testplayer.png");
         this.load.spritesheet("plain", "assets/testplain.png", {frameWidth: 32, frameHeight: 100, startFrame: 0, endFrame: 2});
         this.load.image("ladder", "assets/testladder.png");
@@ -21,6 +25,10 @@ class LevelOne extends Phaser.Scene {
     {
         console.log("Present! LV1");
         this.hexColor = new Phaser.Display.Color(25, 50, 180);
+        //add audio
+        this.timeTravel = this.sound.add("timeTravel");
+        this.hurt = this.sound.add("hurt");
+        this.pickupKey = this.sound.add("pickupKey");
         //text config
         let infoConfig = {
             fontFamily: 'Courier',
@@ -191,6 +199,7 @@ class LevelOne extends Phaser.Scene {
         //change Time
         if(Phaser.Input.Keyboard.JustDown(switchTimeKey))
         {
+            this.timeTravel.play();
             this.changeTime();
         }
         this.cameras.main.setBackgroundColor(this.hexColor);
@@ -208,6 +217,7 @@ class LevelOne extends Phaser.Scene {
         //pickup key
         if(this.physics.overlap(this.player, this.key) && Phaser.Input.Keyboard.JustDown(interactKey))
         {
+            this.pickupKey.play();
             inventory.addItem("key");
             this.ikey.alpha = 1;
             this.key.alpha = 0;
