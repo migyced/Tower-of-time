@@ -3,7 +3,8 @@ class Background extends Phaser.GameObjects.TileSprite
     constructor(scene, x, y, width, height, texture, frame, allowGravity, immovable)
     {
         super(scene, x, y, width, height, texture, frame);
-        scene.physics.addexisting(this);
+        this.setOrigin(0);
+        scene.physics.add.existing(this);
         scene.add.existing(this);
         if(allowGravity)
         {

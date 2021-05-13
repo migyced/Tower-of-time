@@ -54,7 +54,7 @@ class Tutorial1 extends Phaser.Scene {
         this.ladder2 = new Background(this, game.config.width - 32, 130, 32, 200, "ladder", 0, false, true);
 
         //add door
-        this.door = new Background(this, 0, 55, 32, 75, "door", false, true);
+        this.door = new Background(this, 0, 55, 32, 75, "door", 0,  false, true);
 
         //add enemy
         this.enemy1 = new Enemy(this, enemy1X, enemy1Y, "enemy");
