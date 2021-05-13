@@ -7,7 +7,7 @@ class Tutorial1 extends Phaser.Scene {
     preload()
     {
         this.load.image("player", "assets/testplayer.png");
-        this.load.image("plain", "assets/testplain.png");
+        this.load.spritesheet("plain", "assets/testplain.png", {frameWidth: 32, frameHeight: 100, startFrame: 0, endFrame: 2});
         this.load.image("ladder", "assets/testladder.png");
         this.load.image("inventory", "assets/testInventory.png");
         this.load.image("key", "assets/testKey.png");

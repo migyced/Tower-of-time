@@ -8,7 +8,7 @@ class LevelOne extends Phaser.Scene {
     preload()
     {
         this.load.image("player", "assets/testplayer.png");
-        this.load.image("plain", "assets/testplain.png");
+        this.load.spritesheet("plain", "assets/testplain.png", {frameWidth: 32, frameHeight: 100, startFrame: 0, endFrame: 2});
         this.load.image("ladder", "assets/testladder.png");
         this.load.image("inventory", "assets/testInventory.png");
         this.load.image("key", "assets/testKey.png");
@@ -38,8 +38,8 @@ class LevelOne extends Phaser.Scene {
         this.tree.alpha = 0;
         //add platforms
             //bottom left
-        this.platform1 = this.add.tileSprite(0, 400, 80, 50, "plain").setOrigin(0);
-        this.platform1_1 = this.add.tileSprite(112, 400, 138, 50, "plain").setOrigin(0);
+        this.platform1 = this.add.tileSprite(0, 400, 80, 50, "plain", 1).setOrigin(0);
+        this.platform1_1 = this.add.tileSprite(112, 400, 138, 50, "plain", 1).setOrigin(0);
         this.physics.add.existing(this.platform1);
         this.physics.add.existing(this.platform1_1);
         this.platform1.body.setAllowGravity(false);
@@ -47,8 +47,8 @@ class LevelOne extends Phaser.Scene {
         this.platform1.body.immovable = true;
         this.platform1_1.body.immovable = true;
             //bottom right
-        this.platform2 = this.add.tileSprite(510, 400, 140, 50, "plain").setOrigin(0);
-        this.platform2_1 = this.add.tileSprite(682, 400, 278, 50, "plain").setOrigin(0);
+        this.platform2 = this.add.tileSprite(510, 400, 140, 50, "plain", 1).setOrigin(0);
+        this.platform2_1 = this.add.tileSprite(682, 400, 278, 50, "plain", 1).setOrigin(0);
         this.physics.add.existing(this.platform2);
         this.physics.add.existing(this.platform2_1);
         this.platform2.body.setAllowGravity(false);
@@ -56,8 +56,8 @@ class LevelOne extends Phaser.Scene {
         this.platform2.body.immovable = true;
         this.platform2_1.body.immovable = true;
             //middle left
-        this.platform3 = this.add.tileSprite(0, 250, 10, 50, "plain").setOrigin(0);
-        this.platform3_1 = this.add.tileSprite(42, 250, 208, 50, "plain").setOrigin(0);
+        this.platform3 = this.add.tileSprite(0, 250, 10, 50, "plain", 1).setOrigin(0);
+        this.platform3_1 = this.add.tileSprite(42, 250, 208, 50, "plain", 1).setOrigin(0);
         this.physics.add.existing(this.platform3);
         this.physics.add.existing(this.platform3_1);
         this.platform3.body.setAllowGravity(false);
@@ -65,8 +65,8 @@ class LevelOne extends Phaser.Scene {
         this.platform3.body.immovable = true;
         this.platform3_1.body.immovable = true;
             //middle right
-        this.platform4 = this.add.tileSprite(610, 250, 190, 50, "plain").setOrigin(0);
-        this.platform4_1 = this.add.tileSprite(832, 250, 128, 50, "plain").setOrigin(0);
+        this.platform4 = this.add.tileSprite(610, 250, 190, 50, "plain", 1).setOrigin(0);
+        this.platform4_1 = this.add.tileSprite(832, 250, 128, 50, "plain", 1).setOrigin(0);
         this.physics.add.existing(this.platform4);
         this.physics.add.existing(this.platform4_1);
         this.platform4.body.setAllowGravity(false);
@@ -74,8 +74,8 @@ class LevelOne extends Phaser.Scene {
         this.platform4.body.immovable = true;
         this.platform4_1.body.immovable = true;
             //upper left
-        this.platform5 = this.add.tileSprite(0, 100, 50, 50, "plain").setOrigin(0);
-        this.platform5_1 = this.add.tileSprite(82, 100, 100, 50, "plain").setOrigin(0);
+        this.platform5 = this.add.tileSprite(0, 100, 50, 50, "plain", 1).setOrigin(0);
+        this.platform5_1 = this.add.tileSprite(82, 100, 100, 50, "plain", 1).setOrigin(0);
         this.physics.add.existing(this.platform5);
         this.physics.add.existing(this.platform5_1);
         this.platform5.body.setAllowGravity(false);
@@ -83,8 +83,8 @@ class LevelOne extends Phaser.Scene {
         this.platform5.body.immovable = true;
         this.platform5_1.body.immovable = true;
             //upper right
-        this.platform6 = this.add.tileSprite(710, 100, 190, 50, "plain").setOrigin(0);
-        this.platform6_1 = this.add.tileSprite(932, 100, 28, 50, "plain").setOrigin(0);
+        this.platform6 = this.add.tileSprite(710, 100, 190, 50, "plain", 1).setOrigin(0);
+        this.platform6_1 = this.add.tileSprite(932, 100, 28, 50, "plain", 1).setOrigin(0);
         this.physics.add.existing(this.platform6);
         this.physics.add.existing(this.platform6_1);
         this.platform6.body.setAllowGravity(false);
@@ -123,7 +123,7 @@ class LevelOne extends Phaser.Scene {
         this.ladder6.body.setAllowGravity(false);
         this.ladder6.body.immovable = true;
         //add plains
-        this.plain1 = this.add.tileSprite(0, 540, 960, 100, "plain").setOrigin(0);
+        this.plain1 = this.add.tileSprite(0, 540, 960, 100, "plain", 1).setOrigin(0);
         this.physics.add.existing(this.plain1);
         this.plain1.body.setAllowGravity(false);
         this.plain1.body.immovable = true;

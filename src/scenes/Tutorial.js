@@ -7,12 +7,12 @@ class Tutorial extends Phaser.Scene {
     preload()
     {
         this.load.image("player", "assets/testplayer.png");
-        this.load.image("plain", "assets/testplain.png");
+        this.load.spritesheet("plain", "assets/testplain.png", {frameWidth: 32, frameHeight: 100, startFrame: 0, endFrame: 2});
         this.load.image("ladder", "assets/testladder.png");
         this.load.image("inventory", "assets/testInventory.png");
         this.load.image("key", "assets/testKey.png");
         this.load.image("door", "assets/testdoor.png");
-        this.load.image("enemy", "assets/testenemy.png");
+        this.load.spritesheet("enemy", "assets/testenemy.png", {frameWidth: 24, frameHeight: 72, startingFram: 0, endFrame: 1});
         this.load.image("blocker", "assets/testblocker.png");
     }
 
@@ -47,9 +47,9 @@ class Tutorial extends Phaser.Scene {
         
 
         //add plain
-        this.plain1 = new Background(this, 0, 530, game.config.width, 50, "plain", 0, false, true);
-        this.plain2 = new Background(this, 32, 330, game.config.width, 50, "plain", 0, false, true);
-        this.plain3 = new Background(this, 0, 130, game.config.width - 32, 50, "plain", 0, false, true);
+        this.plain1 = new Background(this, 0, 530, game.config.width, 50, "plain", 1, false, true);
+        this.plain2 = new Background(this, 32, 330, game.config.width, 50, "plain", 1, false, true);
+        this.plain3 = new Background(this, 0, 130, game.config.width - 32, 50, "plain", 1, false, true);
 
         //add ladder
         this.ladder1 = new Background(this, 0, 330, 32, 200, "ladder", 0, false, true);
@@ -69,7 +69,7 @@ class Tutorial extends Phaser.Scene {
         this.player = new Player(this, playerX, playerY, "player");
 
         //add enemy
-        this.enemy1 = new Enemy(this, enemy1X, enemy1Y, "enemy");
+        this.enemy1 = new Enemy(this, enemy1X, enemy1Y, "enemy", 2);
         this.enemy1.setPartrol(50, 700);
 
         //Handle Input

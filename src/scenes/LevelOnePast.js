@@ -7,7 +7,7 @@ class LevelOnePast extends Phaser.Scene {
     preload()
     {
         this.load.image("player", "assets/testplayer.png");
-        this.load.image("plain", "assets/testplain.png");
+        this.load.spritesheet("plain", "assets/testplain.png", {frameWidth: 32, frameHeight: 100, startFrame: 0, endFrame: 2});
         this.load.image("ladder", "assets/testladder.png");
         this.load.image("inventory", "assets/testInventory.png");
         this.load.image("key", "assets/testKey.png");
@@ -120,6 +120,11 @@ class LevelOnePast extends Phaser.Scene {
             this.physics.add.existing(this.plain1);
             this.plain1.body.setAllowGravity(false);
             this.plain1.body.immovable = true;
+            //special plain
+            this.plain2 = this.add.tileSprite(180, 540, 290, 100, "plain", 2).setOrigin(0);
+            this.physics.add.existing(this.plain2);
+            this.plain2.body.setAllowGravity(false);
+            this.plain2.body.immovable = true;
     
             //Handle Input
             switchTimeKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
