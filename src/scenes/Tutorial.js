@@ -6,7 +6,7 @@ class Tutorial extends Phaser.Scene {
 
     preload()
     {
-        this.load.image("player", "assets/testplayer.png");
+        this.load.spritesheet("player", "assets/testplayer.png", {frameWidth: 24, frameHeight: 72, startFrame: 0, endFrame: 7});
         this.load.spritesheet("plain", "assets/testplain.png", {frameWidth: 32, frameHeight: 100, startFrame: 0, endFrame: 2});
         this.load.image("ladder", "assets/testladder.png");
         this.load.image("inventory", "assets/testInventory.png");
@@ -72,8 +72,14 @@ class Tutorial extends Phaser.Scene {
         //add gravity
         this.physics.world.gravity.y = 1000;
         //add player
-        this.player = new Player(this, playerX, playerY, "player");
-
+        this.player = new Player(this, playerX, playerY, "player", 0);
+        //add player animation configuaration - needs to be fixed
+        /*this.anims.create({
+            key: 'walk',
+            frames: this.generateFrameNames('player', {start: 0, end: 7}),
+            frameRate: 10,
+            repeat: -1
+        });*/
         //add enemy
         this.enemy1 = new Enemy(this, enemy1X, enemy1Y, "enemy", 1);
         this.enemy1.setPartrol(50, 700);
@@ -127,6 +133,16 @@ class Tutorial extends Phaser.Scene {
             inventory.addItem("key");
             this.ikey.alpha = 1;
             this.key.alpha = 0;
+        }
+        //walking animation - needs to be checked after this.anims.generateNumbers is fixed
+        //walkingAnimation(this.player); 
+    }
+
+    walkingAnimation(player){
+        if(Phaser.Input.Keyboard.JustDown(leftKey) || Phaser.Input.Keyboard.JustDown(rightKey)){//plays animation while moving sideways
+            player.anims.play('walk', true);
+        }else{//pause animation when the player isn't moving
+            player.anims.pauseAll();
         }
     }
 

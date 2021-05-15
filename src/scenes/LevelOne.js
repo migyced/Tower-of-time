@@ -12,7 +12,7 @@ class LevelOne extends Phaser.Scene {
         this.load.audio("pickupSeed", "assets/pickupSeed.wav");
         this.load.audio("timeTravel", "assets/timeTravelSFX.wav");
         this.load.audio("doorUnlock", "assets/doorUnlock.mp3");
-        this.load.image("player", "assets/testplayer.png");
+        this.load.spritesheet("player", "assets/testplayer.png", {frameWidth: 24, frameHeight: 72, startFrame: 0, endFrame: 7});
         this.load.spritesheet("plain", "assets/testplain.png", {frameWidth: 32, frameHeight: 100, startFrame: 0, endFrame: 2});
         this.load.image("ladder", "assets/testladder.png");
         this.load.image("inventory", "assets/testInventory.png");
@@ -87,7 +87,7 @@ class LevelOne extends Phaser.Scene {
         //add seed
         this.iseed = new Item(this, game.config.width / 2 - 15, game.config.height - 70, "seed", 0, "iseed", false);
         //add player
-        this.player = new Player(this, playerX, playerY, "player");
+        this.player = new Player(this, playerX, playerY, "player", 0);
         //Handle Input
         switchTimeKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         leftKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);

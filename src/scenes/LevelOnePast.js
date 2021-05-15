@@ -10,7 +10,7 @@ class LevelOnePast extends Phaser.Scene {
         this.load.audio("pickupKey", "assets/pickupKey.wav");
         this.load.audio("pickupSeed", "assets/pickupSeed.wav");
         this.load.audio("timeTravel", "assets/timeTravelSFX.wav");//delete audio preloads later
-        this.load.image("player", "assets/testplayer.png");
+        this.load.spritesheet("player", "assets/testplayer.png", {frameWidth: 24, frameHeight: 72, startFrame: 0, endFrame: 7});
         this.load.spritesheet("plain", "assets/testplain.png", {frameWidth: 32, frameHeight: 100, startFrame: 0, endFrame: 2});
         this.load.image("ladder", "assets/testladder.png");
         this.load.image("inventory", "assets/testInventory.png");
@@ -98,7 +98,7 @@ class LevelOnePast extends Phaser.Scene {
             this.ikey = new Item(this, game.config.width / 2 - 90, game.config.height - 70, "key", 0, "ikey", false);
 
             //add player
-            this.player = new Player(this, playerX, playerY, "player");
+            this.player = new Player(this, playerX, playerY, "player", 0);
 
             //add collider
             this.physics.add.collider(this.player, [this.plain1, this.platform1, this.platform1_1, this.platform2, this.platform2_1, this.platform3, this.platform3_1, this.platform4, this.platform4_1, this.platform5,this.platform6, this.platform6_1]);
