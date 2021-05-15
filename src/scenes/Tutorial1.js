@@ -12,6 +12,7 @@ class Tutorial1 extends Phaser.Scene {
         this.load.image("inventory", "assets/testInventory.png");
         this.load.image("key", "assets/testKey.png");
         this.load.image("door", "assets/testdoor.png");
+        this.load.audio("doorUnlock", "assets/doorUnlock.mp3");
     }
 
     create()
@@ -20,6 +21,7 @@ class Tutorial1 extends Phaser.Scene {
         //add audio
         this.timeTravel = this.sound.add("timeTravel");
         this.hurt = this.sound.add("hurt");
+        this.doorUnlock = this.sound.add("doorUnlock");
         //text config
         let infoConfig = {
             fontFamily: 'Courier',
@@ -100,6 +102,7 @@ class Tutorial1 extends Phaser.Scene {
         //Open door
         if(this.physics.overlap(this.player, this.door) && Phaser.Input.Keyboard.JustDown(interactKey) && inventory.checkItem("key"))
         {
+            this.doorUnlock.play();
             inventory.Clear();
             this.scene.start("levelOne");
         }

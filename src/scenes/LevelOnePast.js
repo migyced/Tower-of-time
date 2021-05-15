@@ -17,7 +17,7 @@ class LevelOnePast extends Phaser.Scene {
         this.load.image("key", "assets/testKey.png");
         this.load.image("door", "assets/testdoor.png");
         this.load.image("seed", "assets/testseed.png");
-
+        this.load.audio("doorUnlock", "assets/doorUnlock.mp3");
     }
 
     create()
@@ -29,111 +29,54 @@ class LevelOnePast extends Phaser.Scene {
         this.hurt = this.sound.add("hurt");
         this.pickupSeed = this.sound.add("pickupSeed");
         this.pickupKey = this.sound.add("pickupKey");
+        this.doorUnlock = this.sound.add("doorUnlock");
         //text config
         let infoConfig = {
             fontFamily: 'Courier',
             fontSize: '20px',
             color: '#FFFFFF'
         }
+        //add text
+        this.add.text(game.config.width / 2 - 250, 150, "Press E in order to pickup...", infoConfig).setOrigin(0);
+        this.add.text(game.config.width / 2 - 100, 455, "...Or use a item", infoConfig).setOrigin(0);
         //add gravity
         this.physics.world.gravity.y = 1000;
         
         //add platforms
             //bottom left
-            this.platform1 = this.add.tileSprite(0, 400, 80, 50, "plain").setOrigin(0);
-            this.platform1_1 = this.add.tileSprite(112, 400, 138, 50, "plain").setOrigin(0);
-            this.physics.add.existing(this.platform1);
-            this.physics.add.existing(this.platform1_1);
-            this.platform1.body.setAllowGravity(false);
-            this.platform1_1.body.setAllowGravity(false);
-            this.platform1.body.immovable = true;
-            this.platform1_1.body.immovable = true;
+            this.platform1 = new Background(this, 0, 400, 80, 50, "plain", 0, false, true);
+            this.platform1_1 = new Background(this, 112, 400, 138, 50, "plain", 0, false, true);
                 //bottom right
-            this.platform2 = this.add.tileSprite(510, 400, 140, 50, "plain").setOrigin(0);
-            this.platform2_1 = this.add.tileSprite(682, 400, 278, 50, "plain").setOrigin(0);
-            this.physics.add.existing(this.platform2);
-            this.physics.add.existing(this.platform2_1);
-            this.platform2.body.setAllowGravity(false);
-            this.platform2_1.body.setAllowGravity(false);
-            this.platform2.body.immovable = true;
-            this.platform2_1.body.immovable = true;
+            this.platform2 = new Background(this, 510, 400, 140, 50, "plain", 0, false, true);
+            this.platform2_1 = new Background(this, 682, 400, 278, 50, "plain", 0, false, true);
                 //middle left
-            this.platform3 = this.add.tileSprite(0, 250, 10, 50, "plain").setOrigin(0);
-            this.platform3_1 = this.add.tileSprite(42, 250, 208, 50, "plain").setOrigin(0);
-            this.physics.add.existing(this.platform3);
-            this.physics.add.existing(this.platform3_1);
-            this.platform3.body.setAllowGravity(false);
-            this.platform3_1.body.setAllowGravity(false);
-            this.platform3.body.immovable = true;
-            this.platform3_1.body.immovable = true;
+            this.platform3 = new Background(this, 0, 250, 10, 50, "plain", 0, false, true);
+            this.platform3_1 = new Background(this, 42, 250, 208, 50, "plain", 0, false, true);
                 //middle right
-            this.platform4 = this.add.tileSprite(610, 250, 190, 50, "plain").setOrigin(0);
-            this.platform4_1 = this.add.tileSprite(832, 250, 128, 50, "plain").setOrigin(0);
-            this.physics.add.existing(this.platform4);
-            this.physics.add.existing(this.platform4_1);
-            this.platform4.body.setAllowGravity(false);
-            this.platform4_1.body.setAllowGravity(false);
-            this.platform4.body.immovable = true;
-            this.platform4_1.body.immovable = true;
+            this.platform4 = new Background(this, 610, 250, 190, 50, "plain", 0, false, true);
+            this.platform4_1 = new Background(this, 832, 250, 128, 50, "plain", 0, false, true);
                 //upper left
-            this.platform5 = this.add.tileSprite(0, 100, 83, 50, "plain").setOrigin(0);
-            this.platform5_1 = this.add.tileSprite(82, 100, 100, 50, "plain").setOrigin(0);
-            this.physics.add.existing(this.platform5);
-            this.physics.add.existing(this.platform5_1);
-            this.platform5.body.setAllowGravity(false);
-            this.platform5_1.body.setAllowGravity(false);
-            this.platform5.body.immovable = true;
-            this.platform5_1.body.immovable = true;
+            this.platform5 = new Background(this, 0, 100, 182, 50, "plain", 0, false, true);
                 //upper right
-            this.platform6 = this.add.tileSprite(710, 100, 190, 50, "plain").setOrigin(0);
-            this.platform6_1 = this.add.tileSprite(932, 100, 28, 50, "plain").setOrigin(0);
-            this.physics.add.existing(this.platform6);
-            this.physics.add.existing(this.platform6_1);
-            this.platform6.body.setAllowGravity(false);
-            this.platform6_1.body.setAllowGravity(false);
-            this.platform6.body.immovable = true;
-            this.platform6_1.body.immovable = true;
+            this.platform6 = new Background(this, 710, 100, 190, 50, "plain", 0, false, true);
+            this.platform6_1 = new Background(this, 932, 100, 28, 50, "plain", 0, false, true);
             //add ladders
                 //bottom left
-            this.ladder1 = this.add.tileSprite(80, 400, 32, 140, "ladder").setOrigin(0);
-            this.physics.add.existing(this.ladder1);
-            this.ladder1.body.setAllowGravity(false);
-            this.ladder1.body.immovable = true;
+            this.ladder1 = new Background(this, 80, 400, 32, 140, "ladder", 0, false, true);
                 //bottom right
-            this.ladder2 = this.add.tileSprite(650, 400, 32, 140, "ladder").setOrigin(0);
-            this.physics.add.existing(this.ladder2);
-            this.ladder2.body.setAllowGravity(false);
-            this.ladder2.body.immovable = true;
+            this.ladder2 = new Background(this, 650, 400, 32, 140, "ladder", 0, false, true);
                 //middle left
-            this.ladder3 = this.add.tileSprite(10, 250, 32, 150, "ladder").setOrigin(0);
-            this.physics.add.existing(this.ladder3);
-            this.ladder3.body.setAllowGravity(false);
-            this.ladder3.body.immovable = true;
+            this.ladder3 = new Background(this, 10, 250, 32, 150, "ladder", 0, false, true);
                 //middle right
-            this.ladder4 = this.add.tileSprite(800, 250, 32, 150, "ladder").setOrigin(0);
-            this.physics.add.existing(this.ladder4);
-            this.ladder4.body.setAllowGravity(false);
-            this.ladder4.body.immovable = true;
+            this.ladder4 = new Background(this, 800, 250, 32, 150, "ladder", 0, false, true);
                 //top left
-            this.ladder5 = this.add.tileSprite(50, 200, 32, 50, "ladder").setOrigin(0);
-            this.physics.add.existing(this.ladder5);
-            this.ladder5.body.setAllowGravity(false);
-            this.ladder5.body.immovable = true;
+            this.ladder5 = new Background(this, 50, 200, 32, 50, "ladder", 0, false, true);
                 //top right
-            this.ladder6 = this.add.tileSprite(900, 100, 32, 150, "ladder").setOrigin(0);
-            this.physics.add.existing(this.ladder6);
-            this.ladder6.body.setAllowGravity(false);
-            this.ladder6.body.immovable = true;
+            this.ladder6 = new Background(this, 900, 100, 32, 150, "ladder", 0, false, true);
             //add plains
-            this.plain1 = this.add.tileSprite(0, 540, 960, 100, "plain").setOrigin(0);
-            this.physics.add.existing(this.plain1);
-            this.plain1.body.setAllowGravity(false);
-            this.plain1.body.immovable = true;
+            this.plain1 = new Background(this, 0, 540, 960, 100, "plain", 0, false, true);
             //special plain
-            this.plain2 = this.add.tileSprite(180, 540, 290, 100, "plain", 2).setOrigin(0);
-            this.physics.add.existing(this.plain2);
-            this.plain2.body.setAllowGravity(false);
-            this.plain2.body.immovable = true;
+            this.plain2 = new Background(this, 180, 540, 290, 100, "plain", 2, false, true);
     
             //Handle Input
             switchTimeKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
@@ -158,9 +101,8 @@ class LevelOnePast extends Phaser.Scene {
             this.player = new Player(this, playerX, playerY, "player");
 
             //add collider
-            this.physics.add.collider(this.player, [this.plain1, this.platform1, this.platform1_1, this.platform2, this.platform2_1, this.platform3, this.platform3_1, this.platform4, this.platform4_1, this.platform5, this.platform5_1,this.platform6, this.platform6_1]);
+            this.physics.add.collider(this.player, [this.plain1, this.platform1, this.platform1_1, this.platform2, this.platform2_1, this.platform3, this.platform3_1, this.platform4, this.platform4_1, this.platform5,this.platform6, this.platform6_1]);
         //
-        //this.cameras.main.startFollow(this.player);
         
         //add inventory
         this.inventory = this.add.sprite(game.config.width / 2 - 100, game.config.height - 70, "inventory");
@@ -168,11 +110,9 @@ class LevelOnePast extends Phaser.Scene {
         if(inventory.checkItem("key"))
         {
             this.ikey.Reset();
-            //this.key.pickup();
         }
         else
         {
-            //this.key.Reset();
             this.ikey.pickup();
         }
         
@@ -229,6 +169,7 @@ class LevelOnePast extends Phaser.Scene {
         //Open door
         if(this.physics.overlap(this.player, this.door) && Phaser.Input.Keyboard.JustDown(interactKey) && inventory.checkItem("key"))
         {
+            this.doorUnlock.play();
             inventory.Clear();
             this.scene.start("endScene");
         }

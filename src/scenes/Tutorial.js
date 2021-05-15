@@ -12,8 +12,9 @@ class Tutorial extends Phaser.Scene {
         this.load.image("inventory", "assets/testInventory.png");
         this.load.image("key", "assets/testKey.png");
         this.load.image("door", "assets/testdoor.png");
-        this.load.spritesheet("enemy", "assets/testenemy.png", {frameWidth: 24, frameHeight: 72, startingFram: 0, endFrame: 1});
-        this.load.image("blocker", "assets/testblocker.png");
+        this.load.spritesheet("enemy", "assets/testenemy.png", {frameWidth: 24, frameHeight: 72, startingFrame: 0, endFrame: 1});
+        this.load.spritesheet("blocker", "assets/testblocker.png", {frameWidth: 32, frameHeight: 100, startingFrame: 0, endFrame: 1});
+        this.load.audio("doorUnlock", "assets/doorUnlock.mp3");
     }
 
     create()
@@ -23,6 +24,7 @@ class Tutorial extends Phaser.Scene {
         this.timeTravel = this.sound.add("timeTravel");
         this.hurt = this.sound.add("hurt");
         this.pickupKey = this.sound.add("pickupKey");
+        this.doorUnlock = this.sound.add("doorUnlock");
         //text config
         let infoConfig = {
             fontFamily: 'Courier',
@@ -60,7 +62,7 @@ class Tutorial extends Phaser.Scene {
         this.ladder2 = new Background(this, game.config.width - 32, 130, 32, 200, "ladder", 0, false, true);
 
         //add blocker
-        this.blocker1 = new Background(this, 700, 170, 32, 180, "blocker", 0, false, true);
+        this.blocker1 = new Background(this, 700, 170, 32, 180, "blocker", 1, false, true);
 
         //add instrunction text
         this.add.text(game.config.width / 2 - 150, game.config.height - 250, "Use LEFT & RIGHT Key to Move", infoConfig).setOrigin(0);
@@ -73,7 +75,7 @@ class Tutorial extends Phaser.Scene {
         this.player = new Player(this, playerX, playerY, "player");
 
         //add enemy
-        this.enemy1 = new Enemy(this, enemy1X, enemy1Y, "enemy", 2);
+        this.enemy1 = new Enemy(this, enemy1X, enemy1Y, "enemy", 1);
         this.enemy1.setPartrol(50, 700);
 
         //Handle Input

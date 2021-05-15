@@ -23,6 +23,8 @@ let isPast = false;
 //Save player location
 let L0StartX = 200;
 let L0StartY = 450;
+let L1StartX;//add location
+let L1StartY;
 let playerX = 200;
 let playerY = 450;
 

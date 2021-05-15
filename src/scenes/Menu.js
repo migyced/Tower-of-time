@@ -10,6 +10,7 @@ class Menu extends Phaser.Scene {
         this.load.audio("pickupKey", "assets/pickupKey.wav");
         this.load.audio("pickupSeed", "assets/pickupSeed.wav");
         this.load.audio("timeTravel", "assets/timeTravelSFX.wav");
+        this.load.audio("doorUnlock", "assets/doorUnlock.mp3");
     }
 
     create()
