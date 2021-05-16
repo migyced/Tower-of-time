@@ -6,7 +6,7 @@ class Tutorial1 extends Phaser.Scene {
 
     preload()
     {
-        this.load.spritesheet("player", "assets/testplayer.png", {frameWidth: 24, frameHeight: 72, startFrame: 0, endFrame: 7});
+        this.load.spritesheet("player", "assets/testplayer.png", {frameWidth: 24, frameHeight: 72, startFrame: 0, endFrame: 11});
         //walking animation - frames: [0-7]
         //pickup animation - frames: [8 -11]
         this.load.spritesheet("plain", "assets/testplain.png", {frameWidth: 32, frameHeight: 100, startFrame: 0, endFrame: 2});
