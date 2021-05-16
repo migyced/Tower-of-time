@@ -9,8 +9,10 @@ class LevelOnePast extends Phaser.Scene {
         this.load.audio("hurt", "assets/hurt.wav");
         this.load.audio("pickupKey", "assets/pickupKey.wav");
         this.load.audio("pickupSeed", "assets/pickupSeed.wav");
-        this.load.audio("timeTravel", "assets/timeTravelSFX.wav");//delete audio preloads later
+        this.load.audio("timeTravel", "assets/timeTravelSFX.wav");
         this.load.spritesheet("player", "assets/testplayer.png", {frameWidth: 24, frameHeight: 72, startFrame: 0, endFrame: 7});
+        //walking animation - frames: [0-7]
+        //pickup animation - frames: [8 -11]
         this.load.spritesheet("plain", "assets/testplain.png", {frameWidth: 32, frameHeight: 100, startFrame: 0, endFrame: 2});
         this.load.image("ladder", "assets/testladder.png");
         this.load.image("inventory", "assets/testInventory.png");
