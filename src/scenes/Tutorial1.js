@@ -106,6 +106,8 @@ class Tutorial1 extends Phaser.Scene {
         {
             this.doorUnlock.play();
             inventory.Clear();
+            playerX = L1StartX;
+            playerY = L1StartY;
             this.scene.start("levelOne");
         }
     }
