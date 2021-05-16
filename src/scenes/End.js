@@ -28,7 +28,7 @@ class End extends Phaser.Scene {
     {
         if(menuKey.isDown)
         {
-            this.scene.start("menuScene");
+            this.scene.start("levelOne");
         }
     }
 }
