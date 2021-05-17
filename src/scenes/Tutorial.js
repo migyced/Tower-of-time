@@ -17,11 +17,14 @@ class Tutorial extends Phaser.Scene {
         this.load.spritesheet("enemy", "assets/testenemy.png", {frameWidth: 24, frameHeight: 72, startingFrame: 0, endFrame: 1});
         this.load.spritesheet("blocker", "assets/testblocker.png", {frameWidth: 32, frameHeight: 100, startingFrame: 0, endFrame: 1});
         this.load.audio("doorUnlock", "assets/doorUnlock.mp3");
+        this.load.image("background", "assets/towerpresent.png");
     }
 
     create()
     {
         console.log("Present!");
+        //add background
+        this.background = new Background(this, 0, 0, 960, 720, "background", 0, false, true);
         //add audio
         this.timeTravel = this.sound.add("timeTravel");
         this.hurt = this.sound.add("hurt");
@@ -31,6 +34,7 @@ class Tutorial extends Phaser.Scene {
         let infoConfig = {
             fontFamily: 'Courier',
             fontSize: '20px',
+            backgroundColor: '#000000',
             color: '#FFFFFF'
         }
 

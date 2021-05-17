@@ -20,12 +20,14 @@ class LevelOnePast extends Phaser.Scene {
         this.load.image("door", "assets/testdoor.png");
         this.load.image("seed", "assets/testseed.png");
         this.load.audio("doorUnlock", "assets/doorUnlock.mp3");
+        this.load.image("background1", "assets/towerpast.png");
     }
 
     create()
     {
         console.log("Past! LV1");
-        this.hexColor = new Phaser.Display.Color(255, 85, 0);
+        //add background
+        this.background = new Background(this, 0, 0, 960, 720, "background1", 0, false, true);
         //add audio
         this.timeTravel = this.sound.add("timeTravel");
         this.hurt = this.sound.add("hurt");
@@ -36,7 +38,7 @@ class LevelOnePast extends Phaser.Scene {
         let infoConfig = {
             fontFamily: 'Courier',
             fontSize: '20px',
-            color: '#FFFFFF'
+            color: '#000000'
         }
         //add text
         this.add.text(game.config.width / 2 - 250, 150, "Press E in order to pickup...", infoConfig).setOrigin(0);
@@ -141,7 +143,6 @@ class LevelOnePast extends Phaser.Scene {
             this.changeTime();
         }
         
-        this.cameras.main.setBackgroundColor(this.hexColor);
         //climb check
         if(this.physics.overlap(this.player, [this.ladder1, this.ladder2, this.ladder3, this.ladder4,this.ladder5, this.ladder6]) && climbKey.isDown)
         {

@@ -22,12 +22,14 @@ class LevelOne extends Phaser.Scene {
         this.load.image("door", "assets/testdoor.png");
         this.load.image("seed", "assets/testseed.png");
         this.load.image("tree", "assets/testtree.png");
+        this.load.image("background", "assets/towerpresent.png");
     }
 
     create()
     {
         console.log("Present! LV1");
-        this.hexColor = new Phaser.Display.Color(25, 50, 180);
+        //add background
+        this.background = new Background(this, 0, 0, 960, 720, "background", 0, false, true);
         //add audio
         this.timeTravel = this.sound.add("timeTravel");
         this.hurt = this.sound.add("hurt");
@@ -129,7 +131,6 @@ class LevelOne extends Phaser.Scene {
             this.timeTravel.play();
             this.changeTime();
         }
-        this.cameras.main.setBackgroundColor(this.hexColor);
         //climb check
         if(this.physics.overlap(this.player, [this.ladder2, this.ladder3, this.ladder4, this.ladder6]) && climbKey.isDown)
         {

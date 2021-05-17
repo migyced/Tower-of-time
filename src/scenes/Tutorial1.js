@@ -15,11 +15,14 @@ class Tutorial1 extends Phaser.Scene {
         this.load.image("key", "assets/testKey.png");
         this.load.image("door", "assets/testdoor.png");
         this.load.audio("doorUnlock", "assets/doorUnlock.mp3");
+        this.load.image("background1", "assets/towerpast.png");
     }
 
     create()
     {
         console.log("Past!");
+        //add background
+        this.background = new Background(this, 0, 0, 960, 720, "background1", 0, false, true);
         //add audio
         this.timeTravel = this.sound.add("timeTravel");
         this.hurt = this.sound.add("hurt");
@@ -28,6 +31,7 @@ class Tutorial1 extends Phaser.Scene {
         let infoConfig = {
             fontFamily: 'Courier',
             fontSize: '20px',
+            backgroundColor: '#000000',
             color: '#FFFFFF'
         }
 
