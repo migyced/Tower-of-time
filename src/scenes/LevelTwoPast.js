@@ -21,6 +21,8 @@ class LevelTwoPast extends Phaser.Scene {
         this.load.image("seed", "assets/testseed.png");
         this.load.audio("doorUnlock", "assets/doorUnlock.mp3");
         this.load.image("background1", "assets/towerpast.png");
+        this.load.image("switch", "assets/switch.png");
+        this.load.spritesheet("enemy", "assets/testenemy.png", {frameWidth: 24, frameHeight: 72, startingFrame: 0, endFrame: 1});
     }
 
     create()
@@ -43,6 +45,30 @@ class LevelTwoPast extends Phaser.Scene {
         //add gravity
         this.physics.world.gravity.y = 1000;
 
+        //add plain
+        this.plain1_1 = new Background(this, 250, 100, game.config.width - 232, 50, "plain", 0, false, true);
+        this.plain1_2 = new Background(this, 0, 100, 200, 50, "plain", 0, false, true);
+        this.plain2_1 = new Background(this, 0, 250, game.config.width - 182, 50, "plain", 0, false, true);
+        this.plain2_2 = new Background(this, game.config.width - 150, 250, 150, 50, "plain", 0, false, true);
+        this.plain3_1 = new Background(this, 132, 400, game.config.width - 32, 50, "plain", 0, false, true);
+        this.plain3_2 = new Background(this, 0, 400, 100, 50, "plain", 0, false, true);
+        this.plain4 = new Background(this, 0, 550, game.config.width, 50, "plain", 0, false, true);
+
+        //add ladder
+        this.ladder1 = new Background(this, 100, 400, 32, 150, "ladder", 0, false, true);
+        this.ladder2 = new Background(this, game.config.width - 182, 250, 32, 150, "ladder", 0, false, true);
+        this.ladder3 = new Background(this, 432, 100, 32, 150, "ladder", 0, false, true);
+
+        //add interactive item/background
+        this.switch1 = new Background(this, game.config.width - 100, 488, 64, 64, "switch", 0, false, true);
+        this.switch2 = new Background(this, game.config.width - 270, 336, 64, 64, "switch", 0, false, true);
+        this.door = new Background(this, game.config.width - 100, 25, 32, 75, "door", 0, false, true);
+        this.key = new Item(this, 100, 220, "key", 0, "key", false, true); //Two scene have key? Need to check!
+        this.ikey = new Item(this, game.config.width / 2 - 90, game.config.height - 70, "key", 0, "ikey", false);
+
+        //add enemy
+        this.enemy1 = new Enemy(this, 140, 365, "enemy", 0);
+        this.enemy1.setPartrol(140, game.config.width);
 
         //add player
         this.player = new Player(this, playerX, playerY, "player", 0);
@@ -55,17 +81,52 @@ class LevelTwoPast extends Phaser.Scene {
 
         //add inventory
         this.inventory = this.add.sprite(game.config.width / 2 - 100, game.config.height - 70, "inventory");
+
+        if(inventory.checkItem("key"))
+        {
+            this.ikey.Reset();
+            this.key.pickup();
+        }
+        else
+        {
+            this.key.Reset();
+            this.ikey.pickup();
+        }
+
+        //add collider
+        this.physics.add.collider(this.player, [this.plain1_1, this.plain1_2, this.plain2_1, this.plain2_2, this.plain3_1, this.plain3_2, this.plain4]);
     }
 
     update()
     {
         this.player.update();
+        this.enemy1.update();
         //change Time
         if(Phaser.Input.Keyboard.JustDown(switchTimeKey))
         {
             this.timeTravel.play();
             this.changeTime();
         }
+        //climb check
+        if(this.physics.overlap(this.player, [this.ladder1, this.ladder2, this.ladder3]) && climbKey.isDown)
+        {
+            console.log("overlap");
+            this.player.climb();
+            this.player.body.setAllowGravity(false);
+        }
+        else
+        {
+            this.player.body.setAllowGravity(true);
+        }
+        //Open door
+        if(this.physics.overlap(this.player, this.door) && Phaser.Input.Keyboard.JustDown(interactKey) && inventory.checkItem("key"))
+        {
+            this.doorUnlock.play();
+            inventory.Clear();
+            this.scene.start("endScene");
+        }
+
+        //TODO:Switch Logic
     }
 
     changeTime()
