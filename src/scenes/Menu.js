@@ -33,7 +33,7 @@ class Menu extends Phaser.Scene {
         if(startKey.isDown)
         {
             //DEBUG ONLY
-            this.scene.start("levelOne");
+            this.scene.start("tutorialLevelNew");
 
             //this.scene.start("tutorialLevelNew");
         }
