@@ -63,7 +63,7 @@ class LevelTwoPast extends Phaser.Scene {
         this.switch1 = new Background(this, game.config.width - 100, 488, 64, 64, "switch", 0, false, true);
         this.switch2 = new Background(this, game.config.width - 270, 336, 64, 64, "switch", 0, false, true);
         this.door = new Background(this, game.config.width - 100, 25, 32, 75, "door", 0, false, true);
-        this.key = new Item(this, 100, 220, "key", 0, "key", false, true); //Two scene have key? Need to check!
+        this.key = new Item(this, 100, 220, "key", 0, "key", false, true);
         this.ikey = new Item(this, game.config.width / 2 - 90, game.config.height - 70, "key", 0, "ikey", false);
 
         //add enemy

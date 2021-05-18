@@ -38,11 +38,9 @@ class LevelOnePast extends Phaser.Scene {
         let infoConfig = {
             fontFamily: 'Courier',
             fontSize: '20px',
-            color: '#000000'
+            backgroundColor: '#000000',
+            color: '#FFFFFF'
         }
-        //add text
-        this.add.text(game.config.width / 2 - 250, 150, "Press E in order to pickup...", infoConfig).setOrigin(0);
-        this.add.text(game.config.width / 2 - 100, 455, "...Or use a item", infoConfig).setOrigin(0);
         //add gravity
         this.physics.world.gravity.y = 1000;
         

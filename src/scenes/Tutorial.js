@@ -74,6 +74,7 @@ class Tutorial extends Phaser.Scene {
         this.add.text(game.config.width / 2 - 150, game.config.height - 250, "Use LEFT & RIGHT Key to Move", infoConfig).setOrigin(0);
         this.add.text(50, game.config.height - 300, "Use Up Key to Climb", infoConfig).setOrigin(0);
         this.add.text(game.config.width / 2 - 150, game.config.height - 470, "Press S to Change Time", infoConfig).setOrigin(0);
+        this.add.text(game.config.width / 2 - 250, 50, "Press E to pickup, or use an item.", infoConfig).setOrigin(0);
         
         //add gravity
         this.physics.world.gravity.y = 1000;
