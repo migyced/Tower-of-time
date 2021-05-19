@@ -28,6 +28,8 @@ class LevelOnePast extends Phaser.Scene {
         console.log("Past! LV1");
         //add background
         this.background = new Background(this, 0, 0, 960, 720, "background1", 0, false, true);
+        //add inventory
+        this.inventory = this.add.sprite(game.config.width / 2 - 100, game.config.height - 70, "inventory");
         //add audio
         this.timeTravel = this.sound.add("timeTravel");
         this.hurt = this.sound.add("hurt");
@@ -90,7 +92,6 @@ class LevelOnePast extends Phaser.Scene {
             //add seed
             this.iseed = new Item(this, game.config.width / 2 - 15, game.config.height - 70, "seed", 0, "iseed", false);
             this.seed = new Item(this, 200, 210, "seed", 0, "seed", false);
-            this.seed.body.setAllowGravity(false);
 
             //add door
             this.door = this.physics.add.sprite(750, 25, "door").setOrigin(0);
@@ -104,10 +105,6 @@ class LevelOnePast extends Phaser.Scene {
 
             //add collider
             this.physics.add.collider(this.player, [this.plain1, this.platform1, this.platform1_1, this.platform2, this.platform2_1, this.platform3, this.platform3_1, this.platform4, this.platform4_1, this.platform5,this.platform6, this.platform6_1]);
-        //
-        
-        //add inventory
-        this.inventory = this.add.sprite(game.config.width / 2 - 100, game.config.height - 70, "inventory");
         
         if(inventory.checkItem("key"))
         {

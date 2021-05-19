@@ -30,6 +30,8 @@ class LevelOne extends Phaser.Scene {
         console.log("Present! LV1");
         //add background
         this.background = new Background(this, 0, 0, 960, 720, "background", 0, false, true);
+        //add inventory
+        this.inventory = this.add.sprite(game.config.width / 2 - 100, game.config.height - 70, "inventory");
         //add audio
         this.timeTravel = this.sound.add("timeTravel");
         this.hurt = this.sound.add("hurt");
@@ -100,8 +102,6 @@ class LevelOne extends Phaser.Scene {
         interactKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
         //add collider
         this.physics.add.collider(this.player, [this.plain1, this.platform1, this.platform1_1, this.platform2, this.platform2_1, this.platform3, this.platform3_1, this.platform4, this.platform4_1, this.platform5, this.platform5_1,this.platform6, this.platform6_1]);
-        //add inventory
-        this.inventory = this.add.sprite(game.config.width / 2 - 100, game.config.height - 70, "inventory");
         if(inventory.checkItem("key"))
         {
             this.ikey.Reset();
