@@ -57,7 +57,7 @@ class LevelTwoPast extends Phaser.Scene {
         //add ladder
         this.ladder1 = new Background(this, 100, 400, 32, 150, "ladder", 0, false, true);
         this.ladder2 = new Background(this, game.config.width - 182, 250, 32, 150, "ladder", 0, false, true);
-        this.ladder3 = new Background(this, 432, 100, 32, 150, "ladder", 0, false, true);
+        this.ladder3 = new Background(this, ladderX, ladderStartY, 32, 150, "ladder", 0, false, true);
 
         //add interactive item/background
         this.switch1 = new Background(this, game.config.width - 100, 488, 64, 64, "switch", 0, false, true);
@@ -68,7 +68,7 @@ class LevelTwoPast extends Phaser.Scene {
 
         //add enemy
         this.enemy1 = new Enemy(this, 140, 365, "enemy", 0);
-        this.enemy1.setPartrol(140, game.config.width);
+        this.enemy1.setPartrol(140, 950);
 
         //add player
         this.player = new Player(this, playerX, playerY, "player", 0);
@@ -101,6 +101,7 @@ class LevelTwoPast extends Phaser.Scene {
     {
         this.player.update();
         this.enemy1.update();
+        this.ladder3.update();
         //change Time
         if(Phaser.Input.Keyboard.JustDown(switchTimeKey))
         {
@@ -108,15 +109,33 @@ class LevelTwoPast extends Phaser.Scene {
             this.changeTime();
         }
         //climb check
-        if(this.physics.overlap(this.player, [this.ladder1, this.ladder2, this.ladder3]) && climbKey.isDown)
+        if(this.physics.overlap(this.player, [this.ladder1, this.ladder2]) && climbKey.isDown)
         {
             console.log("overlap");
             this.player.climb();
             this.player.body.setAllowGravity(false);
         }
+        //special logic with ladder 3
+        else if(this.physics.overlap(this.player, [this.ladder3]) && climbKey.isDown)
+        {
+            console.log("overlap");
+            if(this.ladder3.x >= 200  && this.ladder3.x < 219)
+            {
+                this.player.climb();
+                this.player.body.setAllowGravity(false);
+            }    
+        }
         else
         {
             this.player.body.setAllowGravity(true);
+        }
+        //check enemy collision
+        if(this.physics.overlap(this.player, this.enemy1))
+        {
+            this.hurt.play();
+            this.Restart();
+            this.player.x = L0StartX;
+            this.player.y = L0StartY;
         }
         //Open door
         if(this.physics.overlap(this.player, this.door) && Phaser.Input.Keyboard.JustDown(interactKey) && inventory.checkItem("key"))
@@ -127,12 +146,38 @@ class LevelTwoPast extends Phaser.Scene {
         }
 
         //TODO:Switch Logic
+        if(this.physics.overlap(this.player, this.switch1) && Phaser.Input.Keyboard.JustDown(interactKey))
+        {
+            switch1On = !switch1On;
+        }
+        if(this.physics.overlap(this.player, this.switch2) && Phaser.Input.Keyboard.JustDown(interactKey))
+        {
+            switch2On = !switch2On;
+        }
+
+        //Ladder 3 Moving
+        if(this.physics.overlap(this.player, this.ladder3) && this.ladder3.isMoving)
+        {
+            this.hurt.play();
+            this.Restart();
+            this.player.x = L0StartX;
+            this.player.y = L0StartY;
+        }
+        if(switch2On)
+        {
+            this.ladder3.isMoving = true;  
+        }   
+        else
+        {
+            this.ladder3.isMoving = false;
+        }
     }
 
     changeTime()
     {
         playerX = this.player.x;
         playerY = this.player.y;
+        ladderX = this.ladder3.x;
         this.scene.start("levelTwo");
     }
 

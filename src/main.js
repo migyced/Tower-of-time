@@ -42,5 +42,12 @@ let startKey, menuKey;
 let inventory = new Inventory();
 
 //level 1 - seed is planted variable
-var seedIsPlanted = false;
+let seedIsPlanted = false;
+
+//level 2 - control variable
+let switch1On = false;
+let switch2On = false;
+let ladderStartX = 432
+let ladderStartY = 100
+let ladderX = ladderStartX;
 

@@ -7,6 +7,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite
         this.scene.physics.add.existing(this);
         this.setCollideWorldBounds(true);
         this.body.setAllowGravity(false);
+        this.stop = false;
         if(direction)
         {
             this.walkSpeed = 3;
@@ -30,17 +31,29 @@ class Enemy extends Phaser.Physics.Arcade.Sprite
         this.minX = min;
     }
 
+    Stop()
+    {
+        this.stop = true;
+    }
+
+    start()
+    {
+        this.stop = false;
+    }
 
     update()
     {
-        if(this.x < this.minX)
+        if(!this.stop)
         {
-            this.walkSpeed = -this.walkSpeed;
-        }
-        else if(this.x > this.maxX)
-        {
-            this.walkSpeed = -this.walkSpeed;
-        }
-        this.x += this.walkSpeed;
+            if(this.x < this.minX)
+            {
+                this.walkSpeed = -this.walkSpeed;
+            }
+            else if(this.x > this.maxX)
+            {
+                this.walkSpeed = -this.walkSpeed;
+            }
+            this.x += this.walkSpeed;
+        }   
     }
 }
