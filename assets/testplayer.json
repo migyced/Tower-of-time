@@ -1,11 +1,11 @@
 { "columns":8,
  "image":"testplayer.png",
- "imageheight":216,
+ "imageheight":360,
  "imagewidth":192,
  "margin":0,
  "name":"tileset1",
  "spacing":0,
- "tilecount":24,
+ "tilecount":40,
  "tiledversion":"1.6.0",
  "tileheight":72,
  "tiles":[
@@ -16,6 +16,11 @@
                  "name":"animation",
                  "type":"string",
                  "value":"walking"
+                }, 
+                {
+                 "name":"direction",
+                 "type":"string",
+                 "value":"right"
                 }, 
                 {
                  "name":"frame",
@@ -32,6 +37,11 @@
                  "value":"walking"
                 }, 
                 {
+                 "name":"direction",
+                 "type":"string",
+                 "value":"right"
+                }, 
+                {
                  "name":"frame",
                  "type":"int",
                  "value":1
@@ -44,6 +54,11 @@
                  "name":"animation",
                  "type":"string",
                  "value":"walking"
+                }, 
+                {
+                 "name":"direction",
+                 "type":"string",
+                 "value":"right"
                 }, 
                 {
                  "name":"frame",
@@ -60,6 +75,11 @@
                  "value":"walking"
                 }, 
                 {
+                 "name":"direction",
+                 "type":"string",
+                 "value":"right"
+                }, 
+                {
                  "name":"frame",
                  "type":"int",
                  "value":3
@@ -72,6 +92,11 @@
                  "name":"animation",
                  "type":"string",
                  "value":"walking"
+                }, 
+                {
+                 "name":"direction",
+                 "type":"string",
+                 "value":"right"
                 }, 
                 {
                  "name":"frame",
@@ -88,6 +113,11 @@
                  "value":"walking"
                 }, 
                 {
+                 "name":"direction",
+                 "type":"string",
+                 "value":"right"
+                }, 
+                {
                  "name":"frame",
                  "type":"int",
                  "value":5
@@ -100,6 +130,11 @@
                  "name":"animation",
                  "type":"string",
                  "value":"walking"
+                }, 
+                {
+                 "name":"direction",
+                 "type":"string",
+                 "value":"right"
                 }, 
                 {
                  "name":"frame",
@@ -116,6 +151,11 @@
                  "value":"walking"
                 }, 
                 {
+                 "name":"direction",
+                 "type":"string",
+                 "value":"right"
+                }, 
+                {
                  "name":"frame",
                  "type":"int",
                  "value":7
@@ -127,7 +167,12 @@
                 {
                  "name":"animation",
                  "type":"string",
-                 "value":"pickup"
+                 "value":"walking"
+                }, 
+                {
+                 "name":"direction",
+                 "type":"string",
+                 "value":"left"
                 }, 
                 {
                  "name":"frame",
@@ -141,7 +186,12 @@
                 {
                  "name":"animation",
                  "type":"string",
-                 "value":"pickup"
+                 "value":"walking"
+                }, 
+                {
+                 "name":"direction",
+                 "type":"string",
+                 "value":"left"
                 }, 
                 {
                  "name":"frame",
@@ -155,7 +205,12 @@
                 {
                  "name":"animation",
                  "type":"string",
-                 "value":"pickup"
+                 "value":"walking"
+                }, 
+                {
+                 "name":"direction",
+                 "type":"string",
+                 "value":"left"
                 }, 
                 {
                  "name":"frame",
@@ -169,7 +224,12 @@
                 {
                  "name":"animation",
                  "type":"string",
-                 "value":"pickup"
+                 "value":"walking"
+                }, 
+                {
+                 "name":"direction",
+                 "type":"string",
+                 "value":"left"
                 }, 
                 {
                  "name":"frame",
@@ -178,12 +238,93 @@
                 }]
         }, 
         {
+         "id":12,
+         "properties":[
+                {
+                 "name":"animation",
+                 "type":"string",
+                 "value":"walking"
+                }, 
+                {
+                 "name":"direction",
+                 "type":"string",
+                 "value":"left"
+                }, 
+                {
+                 "name":"frame",
+                 "type":"int",
+                 "value":4
+                }]
+        }, 
+        {
+         "id":13,
+         "properties":[
+                {
+                 "name":"animation",
+                 "type":"string",
+                 "value":"walking"
+                }, 
+                {
+                 "name":"direction",
+                 "type":"string",
+                 "value":"left"
+                }, 
+                {
+                 "name":"frame",
+                 "type":"int",
+                 "value":5
+                }]
+        }, 
+        {
+         "id":14,
+         "properties":[
+                {
+                 "name":"animation",
+                 "type":"string",
+                 "value":"walking"
+                }, 
+                {
+                 "name":"direction",
+                 "type":"string",
+                 "value":"left"
+                }, 
+                {
+                 "name":"frame",
+                 "type":"int",
+                 "value":6
+                }]
+        }, 
+        {
+         "id":15,
+         "properties":[
+                {
+                 "name":"animation",
+                 "type":"string",
+                 "value":"walking"
+                }, 
+                {
+                 "name":"direction",
+                 "type":"string",
+                 "value":"left"
+                }, 
+                {
+                 "name":"frame",
+                 "type":"int",
+                 "value":7
+                }]
+        }, 
+        {
          "id":16,
          "properties":[
                 {
                  "name":"animation",
                  "type":"string",
-                 "value":"climbing"
+                 "value":"pickup"
+                }, 
+                {
+                 "name":"direction",
+                 "type":"string",
+                 "value":"right"
                 }, 
                 {
                  "name":"frame",
@@ -197,7 +338,12 @@
                 {
                  "name":"animation",
                  "type":"string",
-                 "value":"climbing"
+                 "value":"pickup"
+                }, 
+                {
+                 "name":"direction",
+                 "type":"string",
+                 "value":"right"
                 }, 
                 {
                  "name":"frame",
@@ -211,7 +357,12 @@
                 {
                  "name":"animation",
                  "type":"string",
-                 "value":"climbing"
+                 "value":"pickup"
+                }, 
+                {
+                 "name":"direction",
+                 "type":"string",
+                 "value":"right"
                 }, 
                 {
                  "name":"frame",
@@ -225,7 +376,164 @@
                 {
                  "name":"animation",
                  "type":"string",
+                 "value":"pickup"
+                }, 
+                {
+                 "name":"direction",
+                 "type":"string",
+                 "value":"right"
+                }, 
+                {
+                 "name":"frame",
+                 "type":"int",
+                 "value":3
+                }]
+        }, 
+        {
+         "id":24,
+         "properties":[
+                {
+                 "name":"animation",
+                 "type":"string",
+                 "value":"pickup"
+                }, 
+                {
+                 "name":"direction",
+                 "type":"string",
+                 "value":"left"
+                }, 
+                {
+                 "name":"frame",
+                 "type":"int",
+                 "value":0
+                }]
+        }, 
+        {
+         "id":25,
+         "properties":[
+                {
+                 "name":"animation",
+                 "type":"string",
+                 "value":"pickup"
+                }, 
+                {
+                 "name":"direction",
+                 "type":"string",
+                 "value":"left"
+                }, 
+                {
+                 "name":"frame",
+                 "type":"int",
+                 "value":1
+                }]
+        }, 
+        {
+         "id":26,
+         "properties":[
+                {
+                 "name":"animation",
+                 "type":"string",
+                 "value":"pickup"
+                }, 
+                {
+                 "name":"direction",
+                 "type":"string",
+                 "value":"left"
+                }, 
+                {
+                 "name":"frame",
+                 "type":"int",
+                 "value":2
+                }]
+        }, 
+        {
+         "id":27,
+         "properties":[
+                {
+                 "name":"animation",
+                 "type":"string",
+                 "value":"pickup"
+                }, 
+                {
+                 "name":"direction",
+                 "type":"string",
+                 "value":"left"
+                }, 
+                {
+                 "name":"frame",
+                 "type":"int",
+                 "value":3
+                }]
+        }, 
+        {
+         "id":32,
+         "properties":[
+                {
+                 "name":"animation",
+                 "type":"string",
                  "value":"climbing"
+                }, 
+                {
+                 "name":"direction",
+                 "type":"string",
+                 "value":"up"
+                }, 
+                {
+                 "name":"frame",
+                 "type":"int",
+                 "value":0
+                }]
+        }, 
+        {
+         "id":33,
+         "properties":[
+                {
+                 "name":"animation",
+                 "type":"string",
+                 "value":"climbing"
+                }, 
+                {
+                 "name":"direction",
+                 "type":"string",
+                 "value":"up"
+                }, 
+                {
+                 "name":"frame",
+                 "type":"int",
+                 "value":1
+                }]
+        }, 
+        {
+         "id":34,
+         "properties":[
+                {
+                 "name":"animation",
+                 "type":"string",
+                 "value":"climbing"
+                }, 
+                {
+                 "name":"direction",
+                 "type":"string",
+                 "value":"up"
+                }, 
+                {
+                 "name":"frame",
+                 "type":"int",
+                 "value":2
+                }]
+        }, 
+        {
+         "id":35,
+         "properties":[
+                {
+                 "name":"animation",
+                 "type":"string",
+                 "value":"climbing"
+                }, 
+                {
+                 "name":"direction",
+                 "type":"string",
+                 "value":"up"
                 }, 
                 {
                  "name":"frame",
