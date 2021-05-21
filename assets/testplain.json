@@ -1,11 +1,11 @@
-{ "columns":3,
+{ "columns":4,
  "image":"testplain.png",
  "imageheight":100,
- "imagewidth":96,
+ "imagewidth":128,
  "margin":0,
  "name":"testplain",
  "spacing":0,
- "tilecount":3,
+ "tilecount":4,
  "tiledversion":"1.6.0",
  "tileheight":100,
  "tiles":[
@@ -79,6 +79,30 @@
                  "name":"specialName",
                  "type":"string",
                  "value":"farmable"
+                }]
+        }, 
+        {
+         "id":3,
+         "properties":[
+                {
+                 "name":"frame",
+                 "type":"int",
+                 "value":3
+                }, 
+                {
+                 "name":"scene",
+                 "type":"string",
+                 "value":"present"
+                }, 
+                {
+                 "name":"special",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
+                 "name":"specialName",
+                 "type":"string",
+                 "value":"breakable"
                 }]
         }],
  "tilewidth":32,
