@@ -81,16 +81,15 @@ class Tutorial extends Phaser.Scene {
         //add player
         this.player = new Player(this, playerX, playerY, "player", 0);
         //add player animation configuaration - needs to be fixed
-        /*this.anims.create({
+        this.anims.create({
             key: 'walk',
-            frames: this.generateFrameNames('player', {start: 0, end: 7}),
+            frames: this.anims.generateFrameNames('player', {start: 0, end: 7}),
             frameRate: 10,
             repeat: -1
-        });*/
+        });
         //add enemy
         this.enemy1 = new Enemy(this, enemy1X, enemy1Y, "enemy", 1);
         this.enemy1.setPartrol(50, 700);
-
         //Handle Input
         switchTimeKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         leftKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
@@ -106,6 +105,16 @@ class Tutorial extends Phaser.Scene {
     {
         this.player.update();
         this.enemy1.update();
+        //walking animation
+        if(isWalking)
+        {
+            this.player.anims.play('walk', true);
+        }
+        else
+        {
+            this.player.anims.stop();
+            this.player.setFrame(0);
+        }
         //change Time
         if(Phaser.Input.Keyboard.JustDown(switchTimeKey))
         {
@@ -118,10 +127,18 @@ class Tutorial extends Phaser.Scene {
             console.log("overlap");
             this.player.climb();
             this.player.body.setAllowGravity(false);
+            //TODO:play climbing animation
+            isClimbing = true;
         }
         else
         {
             this.player.body.setAllowGravity(true);
+            if(isClimbing)
+            {
+                isClimbing = false;
+                this.player.anims.stop();
+                this.player.setFrame(0);
+            }
         }
 
         //check enemy collision
@@ -140,18 +157,13 @@ class Tutorial extends Phaser.Scene {
             inventory.addItem("key");
             this.ikey.alpha = 1;
             this.key.alpha = 0;
+            //TODO: Play pickup animations
         }
         //walking animation - needs to be checked after this.anims.generateNumbers is fixed
         //walkingAnimation(this.player); 
+        
     }
 
-    walkingAnimation(player){
-        if(Phaser.Input.Keyboard.JustDown(leftKey) || Phaser.Input.Keyboard.JustDown(rightKey)){//plays animation while moving sideways
-            player.anims.play('walk', true);
-        }else{//pause animation when the player isn't moving
-            player.anims.pauseAll();
-        }
-    }
 
     changeTime()
     {

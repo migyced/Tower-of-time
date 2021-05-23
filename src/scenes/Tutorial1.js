@@ -89,6 +89,16 @@ class Tutorial1 extends Phaser.Scene {
     {
         this.player.update();
         this.enemy1.update();
+        //walking animation
+        if(isWalking)
+        {
+            this.player.anims.play('walk', true);
+        }
+        else
+        {
+            this.player.anims.stop();
+            this.player.setFrame(0);
+        }
         //change Time
         if(Phaser.Input.Keyboard.JustDown(switchTimeKey))
         {
@@ -100,10 +110,18 @@ class Tutorial1 extends Phaser.Scene {
             console.log("overlap");
             this.player.climb();
             this.player.body.setAllowGravity(false);
+            //TODO:play climbing animation
+            isClimbing = true;
         }
         else
         {
             this.player.body.setAllowGravity(true);
+            if(isClimbing)
+            {
+                isClimbing = false;
+                this.player.anims.stop();
+                this.player.setFrame(0);
+            }
         }
         //Open door
         if(this.physics.overlap(this.player, this.door) && Phaser.Input.Keyboard.JustDown(interactKey) && inventory.checkItem("key"))

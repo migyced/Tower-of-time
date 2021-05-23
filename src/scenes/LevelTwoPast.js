@@ -14,6 +14,7 @@ class LevelTwoPast extends Phaser.Scene {
         //walking animation - frames: [0-7]
         //pickup animation - frames: [8 -11]
         this.load.spritesheet("plain", "assets/testplain.png", {frameWidth: 32, frameHeight: 100, startFrame: 0, endFrame: 2});
+        this.load.atlas("player","assets/testplain.png","assets/testplain.json") 
         this.load.image("ladder", "assets/testladder.png");
         this.load.image("inventory", "assets/testInventory.png");
         this.load.image("key", "assets/testKey.png");
@@ -108,12 +109,24 @@ class LevelTwoPast extends Phaser.Scene {
             this.timeTravel.play();
             this.changeTime();
         }
+        //walking animation
+        if(isWalking)
+        {
+            this.player.anims.play('walk', true);
+        }
+        else
+        {
+            this.player.anims.stop();
+            this.player.setFrame(0);
+        }
         //climb check
         if(this.physics.overlap(this.player, [this.ladder1, this.ladder2]) && climbKey.isDown)
         {
             console.log("overlap");
             this.player.climb();
             this.player.body.setAllowGravity(false);
+            //TODO:play climbing animation
+            isClimbing = true;
         }
         //special logic with ladder 3
         else if(this.physics.overlap(this.player, [this.ladder3]) && climbKey.isDown)
@@ -123,11 +136,19 @@ class LevelTwoPast extends Phaser.Scene {
             {
                 this.player.climb();
                 this.player.body.setAllowGravity(false);
+                //TODO:play climbing animation
+                isClimbing = true;
             }    
         }
         else
         {
             this.player.body.setAllowGravity(true);
+            if(isClimbing)
+            {
+                isClimbing = false;
+                this.player.anims.stop();
+                this.player.setFrame(0);
+            }
         }
         //check enemy collision
         if(this.physics.overlap(this.player, this.enemy1))
@@ -149,10 +170,12 @@ class LevelTwoPast extends Phaser.Scene {
         if(this.physics.overlap(this.player, this.switch1) && Phaser.Input.Keyboard.JustDown(interactKey))
         {
             switch1On = !switch1On;
+            //TODO: Play pickup animation
         }
         if(this.physics.overlap(this.player, this.switch2) && Phaser.Input.Keyboard.JustDown(interactKey))
         {
             switch2On = !switch2On;
+            //TODO: Play pickup animation
         }
 
         //Ladder 3 Moving

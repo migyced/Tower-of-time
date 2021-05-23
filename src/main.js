@@ -51,3 +51,7 @@ let ladderStartX = 432
 let ladderStartY = 100
 let ladderX = ladderStartX;
 
+//animation control
+let isWalking = false;
+let isClimbing = false;
+

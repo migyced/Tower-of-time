@@ -106,6 +106,16 @@ class LevelTwo extends Phaser.Scene {
         {
             this.enemy1.start();
         }
+        //walking animation
+        if(isWalking)
+        {
+            this.player.anims.play('walk', true);
+        }
+        else
+        {
+            this.player.anims.stop();
+            this.player.setFrame(0);
+        }
         //change Time
         if(Phaser.Input.Keyboard.JustDown(switchTimeKey))
         {
@@ -118,6 +128,8 @@ class LevelTwo extends Phaser.Scene {
             console.log("overlap");
             this.player.climb();
             this.player.body.setAllowGravity(false);
+            //TODO:play climbing animation
+            isClimbing = true;
         }
         else if(this.physics.overlap(this.player, [this.ladder3]) && climbKey.isDown)
         {
@@ -126,11 +138,19 @@ class LevelTwo extends Phaser.Scene {
             {
                 this.player.climb();
                 this.player.body.setAllowGravity(false);
+                //TODO:play climbing animation
+                isClimbing = true;
             }    
         }
         else
         {
             this.player.body.setAllowGravity(true);
+            if(isClimbing)
+            {
+                isClimbing = false;
+                this.player.anims.stop();
+                this.player.setFrame(0);
+            }
         }
         
         //check enemy collision
@@ -149,6 +169,7 @@ class LevelTwo extends Phaser.Scene {
             inventory.addItem("key");
             this.ikey.alpha = 1;
             this.key.alpha = 0;
+            //TODO: Play pickup animation
         }
         //Open door
         if(this.physics.overlap(this.player, this.door) && Phaser.Input.Keyboard.JustDown(interactKey) && inventory.checkItem("key"))
@@ -162,6 +183,7 @@ class LevelTwo extends Phaser.Scene {
         if(this.physics.overlap(this.player, this.switch1) && Phaser.Input.Keyboard.JustDown(interactKey))
         {
             switch1On = !switch1On;
+            //TODO: Play pickup animation
         }
     }
 

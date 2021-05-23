@@ -131,16 +131,35 @@ class LevelOne extends Phaser.Scene {
             this.timeTravel.play();
             this.changeTime();
         }
+        //walking animation
+        if(isWalking)
+        {
+            this.player.anims.play('walk', true);
+        }
+        else
+        {
+            this.player.anims.stop();
+            this.player.setFrame(0);
+        }
         //climb check
         if(this.physics.overlap(this.player, [this.ladder2, this.ladder3, this.ladder4, this.ladder6]) && climbKey.isDown)
         {
             console.log("overlap");
             this.player.climb();
             this.player.body.setAllowGravity(false);
+            //TODO:play climbing animation
+            isClimbing = true;
         }
         else
         {
             this.player.body.setAllowGravity(true);
+            if(isClimbing)
+            {
+                isClimbing = false;
+                this.player.anims.stop();
+                this.player.setFrame(0);
+            }
+        }
         }
         //pickup key
         if(this.physics.overlap(this.player, this.key) && Phaser.Input.Keyboard.JustDown(interactKey))
@@ -149,6 +168,7 @@ class LevelOne extends Phaser.Scene {
             inventory.addItem("key");
             this.ikey.alpha = 1;
             this.key.alpha = 0;
+            //TODO: Play pickup animation
         }
         //Open door
         if(this.physics.overlap(this.player, this.door) && Phaser.Input.Keyboard.JustDown(interactKey) && inventory.checkItem("key"))

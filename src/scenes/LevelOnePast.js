@@ -137,17 +137,35 @@ class LevelOnePast extends Phaser.Scene {
             this.timeTravel.play();
             this.changeTime();
         }
+        //walking animation
+        if(isWalking)
+        {
+            this.player.anims.play('walk', true);
+        }
+        else
+        {
+            this.player.anims.stop();
+            this.player.setFrame(0);
+        }
         
         //climb check
-        if(this.physics.overlap(this.player, [this.ladder1, this.ladder2, this.ladder3, this.ladder4,this.ladder5, this.ladder6]) && climbKey.isDown)
+        if(this.physics.overlap(this.player, [this.ladder2, this.ladder3, this.ladder4, this.ladder6]) && climbKey.isDown)
         {
             console.log("overlap");
             this.player.climb();
             this.player.body.setAllowGravity(false);
+            //TODO:play climbing animation
+            isClimbing = true;
         }
         else
         {
             this.player.body.setAllowGravity(true);
+            if(isClimbing)
+            {
+                isClimbing = false;
+                this.player.anims.stop();
+                this.player.setFrame(0);
+            }
         }
         //pickup key
         if(this.physics.overlap(this.player, this.key) && Phaser.Input.Keyboard.JustDown(interactKey))
@@ -155,6 +173,7 @@ class LevelOnePast extends Phaser.Scene {
             this.pickupKey.play();
             inventory.addItem("key");
             this.ikey.alpha = 1;
+            //TODO: Play pickup animation
         }
         //pickup seed
         if(this.physics.overlap(this.player, this.seed) && Phaser.Input.Keyboard.JustDown(interactKey))
@@ -163,6 +182,7 @@ class LevelOnePast extends Phaser.Scene {
             inventory.addItem("seed");
             this.seed.alpha = 0;
             this.iseed.alpha = 1;
+            //TODO: Play pickup animation
         }
         //Open door
         if(this.physics.overlap(this.player, this.door) && Phaser.Input.Keyboard.JustDown(interactKey) && inventory.checkItem("key"))
@@ -178,6 +198,7 @@ class LevelOnePast extends Phaser.Scene {
             inventory.removeItem("seed");
             this.iseed.alpha = 0;
             seedIsPlanted = true;
+            //TODO: Play pickup animation
         }
     }
 

@@ -20,16 +20,19 @@ class Player extends Phaser.Physics.Arcade.Sprite
         {
             this.setVelocityX(MAX_WALK_SPEED);
             this.flipX = false;
+            isWalking = true;
         }
         else if(leftKey.isDown)
         {
             this.setVelocityX(-MAX_WALK_SPEED);
             this.flipX = true;
+            isWalking = true;
         }
         else
         {
             this.setVelocityX(0);
             //this.setDragX(this.DRAG);
+            isWalking = false;
         }
     }
 
