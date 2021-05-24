@@ -82,7 +82,7 @@ class LevelOne extends Phaser.Scene {
             //top right
         this.ladder6 = new Background(this, 900, 100, 32, 150, "ladder", 0, false, true);
         //add plains
-        this.plain1 = new Background(this, 0, 540, 960, 100, "plain", 1, false, true);
+        this.plain1 = new Background(this, 0, 540, 960, 50, "plain", 1, false, true);
         //add door
         this.door = this.physics.add.sprite(750, 25, "door").setOrigin(0);
         this.door.body.setAllowGravity(false);
@@ -159,7 +159,6 @@ class LevelOne extends Phaser.Scene {
                 this.player.anims.stop();
                 this.player.setFrame(0);
             }
-        }
         }
         //pickup key
         if(this.physics.overlap(this.player, this.key) && Phaser.Input.Keyboard.JustDown(interactKey))

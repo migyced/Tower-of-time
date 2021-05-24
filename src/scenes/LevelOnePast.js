@@ -78,9 +78,9 @@ class LevelOnePast extends Phaser.Scene {
                 //top right
             this.ladder6 = new Background(this, 900, 100, 32, 150, "ladder", 0, false, true);
             //add plains
-            this.plain1 = new Background(this, 0, 540, 960, 100, "plain", 0, false, true);
+            this.plain1 = new Background(this, 0, 540, 960, 50, "plain", 0, false, true);
             //special plain
-            this.plain2 = new Background(this, 180, 540, 290, 100, "plain", 2, false, true);
+            this.plain2 = new Background(this, 180, 540, 290, 50, "plain", 2, false, true);
     
             //Handle Input
             switchTimeKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
