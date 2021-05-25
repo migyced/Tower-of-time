@@ -6,11 +6,14 @@ class Tutorial1 extends Phaser.Scene {
 
     preload()
     {
-        this.load.spritesheet("player", "assets/testplayer.png", {frameWidth: 24, frameHeight: 72, startFrame: 0, endFrame: 11});
-        //walking animation - frames: [0-7]
-        //pickup animation - frames: [8 -11]
-        this.load.spritesheet("plain", "assets/testplain.png", {frameWidth: 32, frameHeight: 100, startFrame: 0, endFrame: 2});
-        this.load.image("ladder", "assets/testladder.png");
+        this.load.spritesheet("player", "assets/testplayer.png", {frameWidth: 24, frameHeight: 72, startFrame: 0, endFrame: 27});
+        //walking right animation - frames: [0-7]
+        //walking left animation - frames: [8 - 15]
+        //pickup right animation - frames: [16 -19]
+        //pickup left animation - frames: [20 - 23]
+        //climbing animation - frames: [24 - 27]
+        this.load.spritesheet("plain", "assets/testplain.png", {frameWidth: 32, frameHeight: 100, startFrame: 0, endFrame: 3});
+        this.load.spritesheet("ladder", "assets/testladder.png", {frameWidth: 32, frameHeight: 120, startFrame: 0, endFrame: 1});
         this.load.image("inventory", "assets/testInventory.png");
         this.load.image("key", "assets/testKey.png");
         this.load.image("door", "assets/testdoor.png");
