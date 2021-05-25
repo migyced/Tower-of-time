@@ -152,7 +152,7 @@ class LevelOnePast extends Phaser.Scene {
         }
         
         //climb check
-        if(this.physics.overlap(this.player, [this.ladder2, this.ladder3, this.ladder4, this.ladder6]) && climbKey.isDown)
+        if(this.physics.overlap(this.player, [this.ladder1, this.ladder2, this.ladder3, this.ladder4, this.ladder6]) && climbKey.isDown)
         {
             console.log("overlap");
             this.player.climb();
