@@ -83,10 +83,22 @@ class Tutorial extends Phaser.Scene {
         this.physics.world.gravity.y = 1000;
         //add player
         this.player = new Player(this, playerX, playerY, "player", 0);
-        //add player animation configuaration - needs to be fixed
+        //add player animation configuaration
         this.anims.create({
             key: 'walk',
             frames: this.anims.generateFrameNames('player', {start: 0, end: 7}),
+            frameRate: 10,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'pickup',
+            frames: this.anims.generateFrameNames('player', {start: 16, end: 19}),
+            frameRate: 10,
+            repeat: 1
+        });
+        this.anims.create({
+            key: 'climb',
+            frames: this.anims.generateFrameNames('player', {start: 24, end: 27}),
             frameRate: 10,
             repeat: -1
         });
@@ -108,10 +120,18 @@ class Tutorial extends Phaser.Scene {
     {
         this.player.update();
         this.enemy1.update();
-        //walking animation
+        //update animation
         if(isWalking)
         {
             this.player.anims.play('walk', true);
+        }
+        else if(isClimbing)
+        {
+            this.player.anims.play('climb', true);
+        }
+        else if(isPicking)
+        {
+            this.player.anims.play('pickup', true);
         }
         else
         {
@@ -130,7 +150,7 @@ class Tutorial extends Phaser.Scene {
             console.log("overlap");
             this.player.climb();
             this.player.body.setAllowGravity(false);
-            //TODO:play climbing animation
+            //play climbing animation
             isClimbing = true;
         }
         else
@@ -139,8 +159,6 @@ class Tutorial extends Phaser.Scene {
             if(isClimbing)
             {
                 isClimbing = false;
-                this.player.anims.stop();
-                this.player.setFrame(0);
             }
         }
 
@@ -160,11 +178,12 @@ class Tutorial extends Phaser.Scene {
             inventory.addItem("key");
             this.ikey.alpha = 1;
             this.key.alpha = 0;
-            //TODO: Play pickup animations
-        }
-        //walking animation - needs to be checked after this.anims.generateNumbers is fixed
-        //walkingAnimation(this.player); 
-        
+            //Play pickup animations
+            isPicking = true;
+            this.time.delayedCall(500, () => {
+                isPicking = false
+            }, null, this);
+        }     
     }
 
 

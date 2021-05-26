@@ -76,6 +76,25 @@ class LevelTwoPast extends Phaser.Scene {
 
         //add player
         this.player = new Player(this, playerX, playerY, "player", 0);
+        //add player animation configuaration
+        this.anims.create({
+            key: 'walk',
+            frames: this.anims.generateFrameNames('player', {start: 0, end: 7}),
+            frameRate: 10,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'pickup',
+            frames: this.anims.generateFrameNames('player', {start: 16, end: 19}),
+            frameRate: 10,
+            repeat: 1
+        });
+        this.anims.create({
+            key: 'climb',
+            frames: this.anims.generateFrameNames('player', {start: 24, end: 27}),
+            frameRate: 10,
+            repeat: -1
+        });
         //Handle Input
         switchTimeKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         leftKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
@@ -112,10 +131,18 @@ class LevelTwoPast extends Phaser.Scene {
             this.timeTravel.play();
             this.changeTime();
         }
-        //walking animation
+        //update animation
         if(isWalking)
         {
             this.player.anims.play('walk', true);
+        }
+        else if(isClimbing)
+        {
+            this.player.anims.play('climb', true);
+        }
+        else if(isPicking)
+        {
+            this.player.anims.play('pickup', true);
         }
         else
         {
@@ -128,7 +155,7 @@ class LevelTwoPast extends Phaser.Scene {
             console.log("overlap");
             this.player.climb();
             this.player.body.setAllowGravity(false);
-            //TODO:play climbing animation
+            //play climbing animation
             isClimbing = true;
         }
         //special logic with ladder 3
@@ -139,7 +166,7 @@ class LevelTwoPast extends Phaser.Scene {
             {
                 this.player.climb();
                 this.player.body.setAllowGravity(false);
-                //TODO:play climbing animation
+                //play climbing animation
                 isClimbing = true;
             }    
         }
@@ -149,8 +176,6 @@ class LevelTwoPast extends Phaser.Scene {
             if(isClimbing)
             {
                 isClimbing = false;
-                this.player.anims.stop();
-                this.player.setFrame(0);
             }
         }
         //check enemy collision
@@ -173,12 +198,21 @@ class LevelTwoPast extends Phaser.Scene {
         if(this.physics.overlap(this.player, this.switch1) && Phaser.Input.Keyboard.JustDown(interactKey))
         {
             switch1On = !switch1On;
-            //TODO: Play pickup animation
+            //Play pickup animations
+            isPicking = true;
+            this.time.delayedCall(500, () => {
+                isPicking = false
+            }, null, this);
+            
         }
         if(this.physics.overlap(this.player, this.switch2) && Phaser.Input.Keyboard.JustDown(interactKey))
         {
             switch2On = !switch2On;
-            //TODO: Play pickup animation
+            //Play pickup animations
+            isPicking = true;
+            this.time.delayedCall(500, () => {
+                isPicking = false
+            }, null, this);
         }
 
         //Ladder 3 Moving
