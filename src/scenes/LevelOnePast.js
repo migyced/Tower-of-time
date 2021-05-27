@@ -105,6 +105,25 @@ class LevelOnePast extends Phaser.Scene {
 
             //add player
             this.player = new Player(this, playerX, playerY, "player", 0);
+            //add player animation configuaration
+            this.anims.create({
+                key: 'walk',
+                frames: this.anims.generateFrameNames('player', {start: 0, end: 7}),
+                frameRate: 10,
+                repeat: -1
+            });
+            this.anims.create({
+                key: 'pickup',
+                frames: this.anims.generateFrameNames('player', {start: 16, end: 19}),
+                frameRate: 10,
+                repeat: 1
+            });
+            this.anims.create({
+                key: 'climb',
+                frames: this.anims.generateFrameNames('player', {start: 24, end: 27}),
+                frameRate: 10,
+                repeat: -1
+            });
 
             //add collider
             this.physics.add.collider(this.player, [this.plain1, this.platform1, this.platform1_1, this.platform2, this.platform2_1, this.platform3, this.platform3_1, this.platform4, this.platform4_1, this.platform5,this.platform6, this.platform6_1]);
@@ -140,10 +159,18 @@ class LevelOnePast extends Phaser.Scene {
             this.timeTravel.play();
             this.changeTime();
         }
-        //walking animation
+        //update animation
         if(isWalking)
         {
             this.player.anims.play('walk', true);
+        }
+        else if(isClimbing)
+        {
+            this.player.anims.play('climb', true);
+        }
+        else if(isPicking)
+        {
+            this.player.anims.play('pickup', true);
         }
         else
         {
@@ -157,7 +184,7 @@ class LevelOnePast extends Phaser.Scene {
             console.log("overlap");
             this.player.climb();
             this.player.body.setAllowGravity(false);
-            //TODO:play climbing animation
+            //play climbing animation
             isClimbing = true;
         }
         else
@@ -166,8 +193,6 @@ class LevelOnePast extends Phaser.Scene {
             if(isClimbing)
             {
                 isClimbing = false;
-                this.player.anims.stop();
-                this.player.setFrame(0);
             }
         }
         //pickup key
@@ -176,7 +201,11 @@ class LevelOnePast extends Phaser.Scene {
             this.pickupKey.play();
             inventory.addItem("key");
             this.ikey.alpha = 1;
-            //TODO: Play pickup animation
+            //Play pickup animations
+            isPicking = true;
+            this.time.delayedCall(500, () => {
+                isPicking = false
+            }, null, this);
         }
         //pickup seed
         if(this.physics.overlap(this.player, this.seed) && Phaser.Input.Keyboard.JustDown(interactKey))
@@ -185,14 +214,18 @@ class LevelOnePast extends Phaser.Scene {
             inventory.addItem("seed");
             this.seed.alpha = 0;
             this.iseed.alpha = 1;
-            //TODO: Play pickup animation
+            //Play pickup animations
+            isPicking = true;
+            this.time.delayedCall(500, () => {
+                isPicking = false
+            }, null, this);
         }
         //Open door
         if(this.physics.overlap(this.player, this.door) && Phaser.Input.Keyboard.JustDown(interactKey) && inventory.checkItem("key"))
         {
             this.doorUnlock.play();
             inventory.Clear();
-            this.scene.start("endScene");
+            this.scene.start("levelTwo");
         }
         //plant seed
         if(this.player.x > 180 && this.player.x < 480 && this.player.y > 500 && Phaser.Input.Keyboard.JustDown(interactKey) && inventory.checkItem("seed"))
@@ -201,7 +234,11 @@ class LevelOnePast extends Phaser.Scene {
             inventory.removeItem("seed");
             this.iseed.alpha = 0;
             seedIsPlanted = true;
-            //TODO: Play pickup animation
+            //Play pickup animations
+            isPicking = true;
+            this.time.delayedCall(500, () => {
+                isPicking = false
+            }, null, this);
         }
     }
 

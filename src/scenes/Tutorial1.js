@@ -76,7 +76,25 @@ class Tutorial1 extends Phaser.Scene {
         this.physics.world.gravity.y = 1000;
         //add player
         this.player = new Player(this, playerX, playerY, "player", 0);
-
+        //add player animation configuaration
+        this.anims.create({
+            key: 'walk',
+            frames: this.anims.generateFrameNames('player', {start: 0, end: 7}),
+            frameRate: 10,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'pickup',
+            frames: this.anims.generateFrameNames('player', {start: 16, end: 19}),
+            frameRate: 10,
+            repeat: 1
+        });
+        this.anims.create({
+            key: 'climb',
+            frames: this.anims.generateFrameNames('player', {start: 24, end: 27}),
+            frameRate: 10,
+            repeat: -1
+        });
         //Handle Input
         switchTimeKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         leftKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
@@ -93,9 +111,18 @@ class Tutorial1 extends Phaser.Scene {
         this.player.update();
         this.enemy1.update();
         //walking animation
+        //update animation
         if(isWalking)
         {
             this.player.anims.play('walk', true);
+        }
+        else if(isClimbing)
+        {
+            this.player.anims.play('climb', true);
+        }
+        else if(isPicking)
+        {
+            this.player.anims.play('pickup', true);
         }
         else
         {

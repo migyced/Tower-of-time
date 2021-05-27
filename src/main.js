@@ -54,4 +54,5 @@ let ladderX = ladderStartX;
 //animation control
 let isWalking = false;
 let isClimbing = false;
+let isPicking = false;
 
