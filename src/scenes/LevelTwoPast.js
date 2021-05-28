@@ -17,7 +17,6 @@ class LevelTwoPast extends Phaser.Scene {
         //pickup left animation - frames: [20 - 23]
         //climbing animation - frames: [24 - 27]
         this.load.spritesheet("plain", "assets/testplain.png", {frameWidth: 32, frameHeight: 100, startFrame: 0, endFrame: 3});
-        this.load.atlas("player","assets/testplain.png","assets/testplain.json") 
         this.load.spritesheet("ladder", "assets/testladder.png", {frameWidth: 32, frameHeight: 120, startFrame: 0, endFrame: 1});
         this.load.image("inventory", "assets/testInventory.png");
         this.load.image("key", "assets/testKey.png");
