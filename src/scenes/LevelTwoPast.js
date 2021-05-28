@@ -27,6 +27,7 @@ class LevelTwoPast extends Phaser.Scene {
         this.load.image("background1", "assets/towerpast.png");
         this.load.image("switch", "assets/switch.png");
         this.load.spritesheet("enemy", "assets/testenemy.png", {frameWidth: 24, frameHeight: 72, startingFrame: 0, endFrame: 1});
+        this.load.spritesheet("timeTravelVFX", "assets/timeTravelVFX.png", {frameWidth: 960, frameHeight: 720, startingFrame: 0, endFrame: 11});
     }
 
     create()
@@ -52,6 +53,7 @@ class LevelTwoPast extends Phaser.Scene {
         //add plain
         this.plain1_1 = new Background(this, 250, 100, game.config.width - 232, 50, "plain", 0, false, true);
         this.plain1_2 = new Background(this, 0, 100, 200, 50, "plain", 0, false, true);
+        this.plain1_3 = new Background(this, 200, 100, 50, 50, "plain", 3, false, true);
         this.plain2_1 = new Background(this, 0, 250, game.config.width - 182, 50, "plain", 0, false, true);
         this.plain2_2 = new Background(this, game.config.width - 150, 250, 150, 50, "plain", 0, false, true);
         this.plain3_1 = new Background(this, 132, 400, game.config.width - 32, 50, "plain", 0, false, true);
@@ -76,6 +78,9 @@ class LevelTwoPast extends Phaser.Scene {
 
         //add player
         this.player = new Player(this, playerX, playerY, "player", 0);
+        //add VFX
+        this.timeTravelVFX = new VFX(this, 0, 0, "timeTravelVFX", 0);
+        this.timeTravelVFX.alpha = 0;
         //add player animation configuaration
         this.anims.create({
             key: 'walk',
@@ -94,6 +99,12 @@ class LevelTwoPast extends Phaser.Scene {
             frames: this.anims.generateFrameNames('player', {start: 24, end: 27}),
             frameRate: 10,
             repeat: -1
+        });
+        this.anims.create({
+            key: 'travel',
+            frames: this.anims.generateFrameNames('timeTravelVFX', {start: 0, end: 11}),
+            frameRate: 10,
+            repeat: 0
         });
         //Handle Input
         switchTimeKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
@@ -128,8 +139,12 @@ class LevelTwoPast extends Phaser.Scene {
         //change Time
         if(Phaser.Input.Keyboard.JustDown(switchTimeKey))
         {
+            this.timeTravelVFX.anims.playReverse('travel', true);
+            this.timeTravelVFX.alpha = 1;
             this.timeTravel.play();
-            this.changeTime();
+            this.time.delayedCall(1300, () => {
+                this.changeTime();
+            }, null, this); 
         }
         //update animation
         if(isWalking)

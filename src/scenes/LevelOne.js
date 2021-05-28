@@ -26,6 +26,7 @@ class LevelOne extends Phaser.Scene {
         this.load.image("seed", "assets/testseed.png");
         this.load.image("tree", "assets/testtree.png");
         this.load.image("background", "assets/towerpresent.png");
+        this.load.spritesheet("timeTravelVFX", "assets/timeTravelVFX.png", {frameWidth: 960, frameHeight: 720, startingFrame: 0, endFrame: 11});
     }
 
     create()
@@ -73,17 +74,17 @@ class LevelOne extends Phaser.Scene {
         this.platform6_1 = new Background(this, 932, 100, 28, 50, "plain", 1, false, true);
         //add ladders
             //bottom left
-        this.ladder1 = new Background(this, 80, 400, 32, 70, "ladder", 0, false, true);
+        this.ladder1 = new Background(this, 80, 400, 32, 70, "ladder", 1, false, true);
             //bottom right
-        this.ladder2 = new Background(this, 650, 400, 32, 140, "ladder", 0, false, true);
+        this.ladder2 = new Background(this, 650, 400, 32, 140, "ladder", 1, false, true);
             //middle left
-        this.ladder3 = new Background(this, 10, 250, 32, 150, "ladder", 0, false, true);
+        this.ladder3 = new Background(this, 10, 250, 32, 150, "ladder", 1, false, true);
             //middle right
-        this.ladder4 = new Background(this, 800, 250, 32, 150, "ladder", 0, false, true);
+        this.ladder4 = new Background(this, 800, 250, 32, 150, "ladder", 1, false, true);
             //top left
-        this.ladder5 = new Background(this, 50, 100, 32, 70, "ladder", 0, false, true);
+        this.ladder5 = new Background(this, 50, 100, 32, 70, "ladder", 1, false, true);
             //top right
-        this.ladder6 = new Background(this, 900, 100, 32, 150, "ladder", 0, false, true);
+        this.ladder6 = new Background(this, 900, 100, 32, 150, "ladder", 1, false, true);
         //add plains
         this.plain1 = new Background(this, 0, 540, 960, 50, "plain", 1, false, true);
         //add door
@@ -97,6 +98,9 @@ class LevelOne extends Phaser.Scene {
         this.iseed = new Item(this, game.config.width / 2 - 15, game.config.height - 70, "seed", 0, "iseed", false);
         //add player
         this.player = new Player(this, playerX, playerY, "player", 0);
+        //add VFX
+        this.timeTravelVFX = new VFX(this, 0, 0, "timeTravelVFX", 0);
+        this.timeTravelVFX.alpha = 0;
         //add player animation configuaration
         this.anims.create({
             key: 'walk',
@@ -115,6 +119,12 @@ class LevelOne extends Phaser.Scene {
             frames: this.anims.generateFrameNames('player', {start: 24, end: 27}),
             frameRate: 10,
             repeat: -1
+        });
+        this.anims.create({
+            key: 'travel',
+            frames: this.anims.generateFrameNames('timeTravelVFX', {start: 0, end: 11}),
+            frameRate: 10,
+            repeat: 0
         });
         //Handle Input
         switchTimeKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
@@ -150,8 +160,12 @@ class LevelOne extends Phaser.Scene {
         //change Time
         if(Phaser.Input.Keyboard.JustDown(switchTimeKey))
         {
+            this.timeTravelVFX.anims.play('travel', true);
+            this.timeTravelVFX.alpha = 1;
             this.timeTravel.play();
-            this.changeTime();
+            this.time.delayedCall(1300, () => {
+                this.changeTime();
+            }, null, this); 
         }
         //update animation
         if(isWalking)
