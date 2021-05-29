@@ -25,6 +25,7 @@ class LevelOnePast extends Phaser.Scene {
         this.load.image("seed", "assets/testseed.png");
         this.load.audio("doorUnlock", "assets/doorUnlock.mp3");
         this.load.image("background1", "assets/towerpast.png");
+        this.load.spritesheet("timeTravelVFX", "assets/timeTravelVFX.png", {frameWidth: 960, frameHeight: 720, startingFrame: 0, endFrame: 11});
     }
 
     create()
@@ -106,6 +107,9 @@ class LevelOnePast extends Phaser.Scene {
 
             //add player
             this.player = new Player(this, playerX, playerY, "player", 0);
+            //add VFX
+            this.timeTravelVFX = new VFX(this, 0, 0, "timeTravelVFX", 0);
+            this.timeTravelVFX.alpha = 0;
             //add player animation configuaration
             this.anims.create({
                 key: 'walk',
@@ -125,7 +129,12 @@ class LevelOnePast extends Phaser.Scene {
                 frameRate: 10,
                 repeat: -1
             });
-
+            this.anims.create({
+                key: 'travel',
+                frames: this.anims.generateFrameNames('timeTravelVFX', {start: 0, end: 11}),
+                frameRate: 10,
+                repeat: 0
+            });
             //add collider
             this.physics.add.collider(this.player, [this.plain1, this.platform1, this.platform1_1, this.platform2, this.platform2_1, this.platform3, this.platform3_1, this.platform4, this.platform4_1, this.platform5,this.platform6, this.platform6_1]);
         
@@ -157,8 +166,12 @@ class LevelOnePast extends Phaser.Scene {
         //change Time
         if(Phaser.Input.Keyboard.JustDown(switchTimeKey))
         {
+            this.timeTravelVFX.anims.playReverse('travel', true);
+            this.timeTravelVFX.alpha = 1;
             this.timeTravel.play();
-            this.changeTime();
+            this.time.delayedCall(1300, () => {
+                this.changeTime();
+            }, null, this); 
         }
         //update animation
         if(isWalking)

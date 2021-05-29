@@ -22,6 +22,7 @@ class Tutorial extends Phaser.Scene {
         this.load.spritesheet("blocker", "assets/testblocker.png", {frameWidth: 32, frameHeight: 100, startingFrame: 0, endFrame: 1});
         this.load.audio("doorUnlock", "assets/doorUnlock.mp3");
         this.load.image("background", "assets/towerpresent.png");
+        this.load.spritesheet("timeTravelVFX", "assets/timeTravelVFX.png", {frameWidth: 960, frameHeight: 720, startingFrame: 0, endFrame: 11});
     }
 
     create()
@@ -68,8 +69,8 @@ class Tutorial extends Phaser.Scene {
         this.plain3 = new Background(this, 0, 130, game.config.width - 32, 50, "plain", 1, false, true);
 
         //add ladder
-        this.ladder1 = new Background(this, 0, 330, 32, 200, "ladder", 0, false, true);
-        this.ladder2 = new Background(this, game.config.width - 32, 130, 32, 200, "ladder", 0, false, true);
+        this.ladder1 = new Background(this, 0, 330, 32, 200, "ladder", 1, false, true);
+        this.ladder2 = new Background(this, game.config.width - 32, 130, 32, 200, "ladder", 1, false, true);
 
         //add blocker
         this.blocker1 = new Background(this, 700, 170, 32, 180, "blocker", 1, false, true);
@@ -84,6 +85,12 @@ class Tutorial extends Phaser.Scene {
         this.physics.world.gravity.y = 1000;
         //add player
         this.player = new Player(this, playerX, playerY, "player", 0);
+        //add enemy
+        this.enemy1 = new Enemy(this, enemy1X, enemy1Y, "enemy", 1);
+        this.enemy1.setPartrol(50, 700);
+        //add VFX
+        this.timeTravelVFX = new VFX(this, 0, 0, "timeTravelVFX", 0);
+        this.timeTravelVFX.alpha = 0;
         //add player animation configuaration
         this.anims.create({
             key: 'walk',
@@ -103,9 +110,12 @@ class Tutorial extends Phaser.Scene {
             frameRate: 10,
             repeat: -1
         });
-        //add enemy
-        this.enemy1 = new Enemy(this, enemy1X, enemy1Y, "enemy", 1);
-        this.enemy1.setPartrol(50, 700);
+        this.anims.create({
+            key: 'travel',
+            frames: this.anims.generateFrameNames('timeTravelVFX', {start: 0, end: 11}),
+            frameRate: 10,
+            repeat: 0
+        });
         //Handle Input
         switchTimeKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         leftKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
@@ -142,8 +152,12 @@ class Tutorial extends Phaser.Scene {
         //change Time
         if(Phaser.Input.Keyboard.JustDown(switchTimeKey))
         {
+            this.timeTravelVFX.anims.play('travel', true);
+            this.timeTravelVFX.alpha = 1;
             this.timeTravel.play();
-            this.changeTime();
+            this.time.delayedCall(1300, () => {
+                this.changeTime();
+            }, null, this);   
         }
         //climb check
         if(this.physics.overlap(this.player, [this.ladder1, this.ladder2]) && climbKey.isDown)
