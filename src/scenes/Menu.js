@@ -37,6 +37,7 @@ class Menu extends Phaser.Scene {
 
             playerX = L0StartX;
             playerY = L0StartY;
+            password = false;
             //this.scene.start("tutorialLevelNew");
         }
     }

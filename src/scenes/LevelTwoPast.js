@@ -33,6 +33,11 @@ class LevelTwoPast extends Phaser.Scene {
     create()
     {
         console.log("Past! LV2");
+        //set keyboard combo
+        this.input.keyboard.createCombo('E476');
+        this.input.keyboard.on('keycombomatch', function (event) {
+            password = true;
+        });
         //add background
         this.background = new Background(this, 0, 0, 960, 720, "background1", 0, false, true);
         //add audio
@@ -58,7 +63,8 @@ class LevelTwoPast extends Phaser.Scene {
         //Add password text
         this.hint1 = this.add.text(game.config.width/2, game.config.height/2 - 25, "X", hintConfig).setOrigin(0);
         this.hint2 = this.add.text(140, 50, "CDL", hintConfig).setOrigin(0);
-
+        this.passwordError = this.add.text(200 , 0, "Please Enter 3 Digit Password, use 'E' to enter again/confirm!", infoConfig).setOrigin(0);
+        this.passwordError.alpha = 0;
         //add door animation
         this.leftDoorAnim = new VFX(this, 102, 20, "doorAnim", 0);
         this.RightDoorAnim = new VFX(this, game.config.width - 240, 20, "doorAnim", 0);
@@ -156,7 +162,7 @@ class LevelTwoPast extends Phaser.Scene {
         }
 
         //add collider
-        this.physics.add.collider(this.player, [this.plain1_1, this.plain1_2, this.plain2_1, this.plain2_2, this.plain3_1, this.plain3_2, this.plain4]);
+        this.physics.add.collider(this.player, [this.plain1_1, this.plain1_2, this.plain1_3, this.plain2_1, this.plain2_2, this.plain3_1, this.plain3_2, this.plain4]);
     }
 
     update()
@@ -240,11 +246,31 @@ class LevelTwoPast extends Phaser.Scene {
         //Open door
         if(this.physics.overlap(this.player, this.door) && Phaser.Input.Keyboard.JustDown(interactKey) && inventory.checkItem("key"))
         {
-            this.doorUnlock.play();
-            inventory.Clear();
-            this.scene.start("endScene");
+            if(password)
+            {
+                this.doorUnlock.play();
+                inventory.Clear();
+                this.scene.start("endScene");
+            }
+            else
+            {
+                this.passwordError.alpha = 1;
+            }
+            
         }
-
+        //pickup key
+        if(this.physics.overlap(this.player, this.key) && Phaser.Input.Keyboard.JustDown(interactKey))
+        {
+            this.pickupKey.play();
+            inventory.addItem("key");
+            this.ikey.alpha = 1;
+            this.key.alpha = 0;
+            //Play pickup animations
+            isPicking = true;
+            this.time.delayedCall(500, () => {
+                isPicking = false
+            }, null, this);
+        }
         //Switch Logic
         if(this.physics.overlap(this.player, this.switch1) && Phaser.Input.Keyboard.JustDown(interactKey))
         {

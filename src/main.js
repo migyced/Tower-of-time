@@ -50,6 +50,7 @@ let switch2On = false;
 let ladderStartX = 432
 let ladderStartY = 100
 let ladderX = ladderStartX;
+let password = false;
 
 //animation control
 let isWalking = false;

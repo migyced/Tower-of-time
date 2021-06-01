@@ -34,6 +34,11 @@ class LevelTwo extends Phaser.Scene {
     create()
     {
         console.log("Present! LV2");
+        //set keyboard combo
+        this.input.keyboard.createCombo('E476');
+        this.input.keyboard.on('keycombomatch', function (event) {
+            password = true;
+        });
         //add background
         this.background = new Background(this, 0, 0, 960, 720, "background", 0, false, true);
         //add audio
@@ -45,7 +50,8 @@ class LevelTwo extends Phaser.Scene {
         let infoConfig = {
             fontFamily: 'Courier',
             fontSize: '20px',
-            color: '#FFFFFF'
+            color: '#FFFFFF',
+            backgroundColor: '#000000'
         }
         let hintConfig = {
             fontFamily: 'Courier',
@@ -58,7 +64,8 @@ class LevelTwo extends Phaser.Scene {
         //Add password text
         this.hint1 = this.add.text(game.config.width/2, game.config.height/2 - 25, "X", hintConfig).setOrigin(0);
         this.hint2 = this.add.text(760, 50, "XVI", hintConfig).setOrigin(0);
-
+        this.passwordError = this.add.text(200 , 0, "Please Enter 3 Digit Password, use 'E' to enter again/confirm!", infoConfig).setOrigin(0);
+        this.passwordError.alpha = 0;
         //add door animation
         this.leftDoorAnim = new VFX(this, 102, 20, "doorAnim", 0);
         this.RightDoorAnim = new VFX(this, game.config.width - 240, 20, "doorAnim", 0);
@@ -232,26 +239,19 @@ class LevelTwo extends Phaser.Scene {
             this.player.x = L0StartX;
             this.player.y = L0StartY;
         }
-
-        //pickup key
-        if(this.physics.overlap(this.player, this.key) && Phaser.Input.Keyboard.JustDown(interactKey))
-        {
-            this.pickupKey.play();
-            inventory.addItem("key");
-            this.ikey.alpha = 1;
-            this.key.alpha = 0;
-            //Play pickup animations
-            isPicking = true;
-            this.time.delayedCall(500, () => {
-                isPicking = false
-            }, null, this);
-        }
         //Open door
         if(this.physics.overlap(this.player, this.door) && Phaser.Input.Keyboard.JustDown(interactKey) && inventory.checkItem("key"))
         {
-            this.doorUnlock.play();
-            inventory.Clear();
-            this.scene.start("endScene");
+            if(password)
+            {
+                this.doorUnlock.play();
+                inventory.Clear();
+                this.scene.start("endScene");
+            }
+            else
+            {
+                this.passwordError.alpha = 1;
+            }
         }
 
         //Switch Logic
