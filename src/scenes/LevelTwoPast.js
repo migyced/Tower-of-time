@@ -28,17 +28,11 @@ class LevelTwoPast extends Phaser.Scene {
         this.load.image("switch", "assets/switch.png");
         this.load.spritesheet("enemy", "assets/testenemy.png", {frameWidth: 24, frameHeight: 72, startingFrame: 0, endFrame: 1});
         this.load.spritesheet("timeTravelVFX", "assets/timeTravelVFX.png", {frameWidth: 960, frameHeight: 720, startingFrame: 0, endFrame: 11});
-        this.load.spritesheet("doorAnim", "assets/doorAnimation.png", {frameWidth: 126, frameHeight: 168, startingFrame: 0, endFrame: 7});
     }
 
     create()
     {
         console.log("Past! LV2");
-        //set keyboard combo
-        this.input.keyboard.createCombo('E476');
-        this.input.keyboard.on('keycombomatch', function (event) {
-            password = true;
-        });
         //add background
         this.background = new Background(this, 0, 0, 960, 720, "background1", 0, false, true);
         //add audio
@@ -53,30 +47,8 @@ class LevelTwoPast extends Phaser.Scene {
             fontSize: '20px',
             color: '#000000'
         }
-        let hintConfig = {
-            fontFamily: 'Courier',
-            fontSize: '30px',
-            color: '#FFFFFF'
-        }
         //add gravity
         this.physics.world.gravity.y = 1000;
-
-        //Add password text
-        this.hint1 = this.add.text(game.config.width/2, game.config.height/2 - 25, "X", hintConfig).setOrigin(0);
-        this.hint2 = this.add.text(140, 50, "CDL", hintConfig).setOrigin(0);
-        this.passwordError = this.add.text(200 , 0, "Please Enter 3 Digit Password, use 'E' to enter again/confirm!", infoConfig).setOrigin(0);
-        this.passwordError.alpha = 0;
-        //add door animation
-        this.leftDoorAnim = new VFX(this, 102, 20, "doorAnim", 0);
-        this.RightDoorAnim = new VFX(this, game.config.width - 240, 20, "doorAnim", 0);
-        if(!switch1On)
-        {
-            this.leftDoorAnim.alpha = 1;
-        }
-        else
-        {
-            this.leftDoorAnim.alpha = 0;
-        }
 
         //add plain
         this.plain1_1 = new Background(this, 250, 100, game.config.width - 232, 50, "plain", 0, false, true);
@@ -99,7 +71,6 @@ class LevelTwoPast extends Phaser.Scene {
         this.door = new Background(this, game.config.width - 100, 25, 32, 75, "door", 0, false, true);
         this.key = new Item(this, 100, 220, "key", 0, "key", false, true);
         this.ikey = new Item(this, game.config.width / 2 - 90, game.config.height - 70, "key", 0, "ikey", false);
-        
 
         //add enemy
         this.enemy1 = new Enemy(this, 140, 365, "enemy", 0);
@@ -135,12 +106,6 @@ class LevelTwoPast extends Phaser.Scene {
             frameRate: 10,
             repeat: 0
         });
-        this.anims.create({
-            key: 'open',
-            frames: this.anims.generateFrameNames('doorAnim', {start: 0, end: 7}),
-            frameRate: 10,
-            repeat: 0
-        });
         //Handle Input
         switchTimeKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         leftKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
@@ -163,7 +128,7 @@ class LevelTwoPast extends Phaser.Scene {
         }
 
         //add collider
-        this.physics.add.collider(this.player, [this.plain1_1, this.plain1_2, this.plain1_3, this.plain2_1, this.plain2_2, this.plain3_1, this.plain3_2, this.plain4]);
+        this.physics.add.collider(this.player, [this.plain1_1, this.plain1_2, this.plain2_1, this.plain2_2, this.plain3_1, this.plain3_2, this.plain4]);
     }
 
     update()
@@ -180,14 +145,6 @@ class LevelTwoPast extends Phaser.Scene {
             this.time.delayedCall(1300, () => {
                 this.changeTime();
             }, null, this); 
-        }
-        if(switch1On)
-        {
-            this.enemy1.Stop();
-        }
-        else
-        {
-            this.enemy1.start();
         }
         //update animation
         if(isWalking)
@@ -247,32 +204,12 @@ class LevelTwoPast extends Phaser.Scene {
         //Open door
         if(this.physics.overlap(this.player, this.door) && Phaser.Input.Keyboard.JustDown(interactKey) && inventory.checkItem("key"))
         {
-            if(password)
-            {
-                this.doorUnlock.play();
-                inventory.Clear();
-                this.scene.start("endScene");
-            }
-            else
-            {
-                this.passwordError.alpha = 1;
-            }
-            
+            this.doorUnlock.play();
+            inventory.Clear();
+            this.scene.start("endScene");
         }
-        //pickup key
-        if(this.physics.overlap(this.player, this.key) && Phaser.Input.Keyboard.JustDown(interactKey))
-        {
-            this.pickupKey.play();
-            inventory.addItem("key");
-            this.ikey.alpha = 1;
-            this.key.alpha = 0;
-            //Play pickup animations
-            isPicking = true;
-            this.time.delayedCall(500, () => {
-                isPicking = false
-            }, null, this);
-        }
-        //Switch Logic
+
+        //TODO:Switch Logic
         if(this.physics.overlap(this.player, this.switch1) && Phaser.Input.Keyboard.JustDown(interactKey))
         {
             switch1On = !switch1On;
@@ -281,25 +218,6 @@ class LevelTwoPast extends Phaser.Scene {
             this.time.delayedCall(500, () => {
                 isPicking = false
             }, null, this);
-            if(switch1On)
-            {
-                this.leftDoorAnim.play('open');
-            }
-            else
-            {
-                this.leftDoorAnim.alpha = 1;
-                this.leftDoorAnim.playReverse('open');
-            }
-            this.leftDoorAnim.on('animationcomplete', () => {    
-                if(switch1On)
-                {
-                    this.leftDoorAnim.alpha = 0;
-                }
-                else
-                {
-                    this.leftDoorAnim.setFrame(0);
-                }
-            });
             
         }
         if(this.physics.overlap(this.player, this.switch2) && Phaser.Input.Keyboard.JustDown(interactKey))
@@ -310,25 +228,6 @@ class LevelTwoPast extends Phaser.Scene {
             this.time.delayedCall(500, () => {
                 isPicking = false
             }, null, this);
-            if(switch2On)
-            {
-                this.RightDoorAnim.play('open');
-            }
-            else
-            {
-                this.RightDoorAnim.alpha = 1;
-                this.RightDoorAnim.playReverse('open');
-            }
-            this.RightDoorAnim.on('animationcomplete', () => {    
-                if(switch2On)
-                {
-                    this.RightDoorAnim.alpha = 0;
-                }
-                else
-                {
-                    this.RightDoorAnim.setFrame(0);
-                }
-            });
         }
 
         //Ladder 3 Moving

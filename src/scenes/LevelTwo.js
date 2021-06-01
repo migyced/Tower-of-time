@@ -29,17 +29,11 @@ class LevelTwo extends Phaser.Scene {
         this.load.image("switch", "assets/switch.png");
         this.load.spritesheet("enemy", "assets/testenemy.png", {frameWidth: 24, frameHeight: 72, startingFrame: 0, endFrame: 1});
         this.load.spritesheet("timeTravelVFX", "assets/timeTravelVFX.png", {frameWidth: 960, frameHeight: 720, startingFrame: 0, endFrame: 11});
-        this.load.spritesheet("doorAnim", "assets/doorAnimation.png", {frameWidth: 126, frameHeight: 168, startingFrame: 0, endFrame: 7});
     }
 
     create()
     {
         console.log("Present! LV2");
-        //set keyboard combo
-        this.input.keyboard.createCombo('E476');
-        this.input.keyboard.on('keycombomatch', function (event) {
-            password = true;
-        });
         //add background
         this.background = new Background(this, 0, 0, 960, 720, "background", 0, false, true);
         //add audio
@@ -51,34 +45,10 @@ class LevelTwo extends Phaser.Scene {
         let infoConfig = {
             fontFamily: 'Courier',
             fontSize: '20px',
-            color: '#FFFFFF',
-            backgroundColor: '#000000'
-        }
-        let hintConfig = {
-            fontFamily: 'Courier',
-            fontSize: '30px',
             color: '#FFFFFF'
         }
         //add gravity
         this.physics.world.gravity.y = 1000;
-
-        //Add password text
-        this.hint1 = this.add.text(game.config.width/2, game.config.height/2 - 25, "X", hintConfig).setOrigin(0);
-        this.hint2 = this.add.text(760, 50, "XVI", hintConfig).setOrigin(0);
-        this.passwordError = this.add.text(200 , 0, "Please Enter 3 Digit Password, use 'E' to enter again/confirm!", infoConfig).setOrigin(0);
-        this.passwordError.alpha = 0;
-        //add door animation
-        this.leftDoorAnim = new VFX(this, 102, 20, "doorAnim", 0);
-        this.RightDoorAnim = new VFX(this, game.config.width - 240, 20, "doorAnim", 0);
-        if(!switch1On)
-        {
-            this.leftDoorAnim.alpha = 1;
-        }
-        else
-        {
-            this.leftDoorAnim.alpha = 0;
-        }
-        
 
         //add plain
         this.plain1_1 = new Background(this, 250, 100, game.config.width - 232, 50, "plain", 1, false, true);
@@ -131,12 +101,6 @@ class LevelTwo extends Phaser.Scene {
         this.anims.create({
             key: 'travel',
             frames: this.anims.generateFrameNames('timeTravelVFX', {start: 0, end: 11}),
-            frameRate: 10,
-            repeat: 0
-        });
-        this.anims.create({
-            key: 'open',
-            frames: this.anims.generateFrameNames('doorAnim', {start: 0, end: 7}),
             frameRate: 10,
             repeat: 0
         });
@@ -240,22 +204,29 @@ class LevelTwo extends Phaser.Scene {
             this.player.x = L0StartX;
             this.player.y = L0StartY;
         }
+
+        //pickup key
+        if(this.physics.overlap(this.player, this.key) && Phaser.Input.Keyboard.JustDown(interactKey))
+        {
+            this.pickupKey.play();
+            inventory.addItem("key");
+            this.ikey.alpha = 1;
+            this.key.alpha = 0;
+            //Play pickup animations
+            isPicking = true;
+            this.time.delayedCall(500, () => {
+                isPicking = false
+            }, null, this);
+        }
         //Open door
         if(this.physics.overlap(this.player, this.door) && Phaser.Input.Keyboard.JustDown(interactKey) && inventory.checkItem("key"))
         {
-            if(password)
-            {
-                this.doorUnlock.play();
-                inventory.Clear();
-                this.scene.start("endScene");
-            }
-            else
-            {
-                this.passwordError.alpha = 1;
-            }
+            this.doorUnlock.play();
+            inventory.Clear();
+            this.scene.start("endScene");
         }
 
-        //Switch Logic
+        //TODO:Switch Logic
         if(this.physics.overlap(this.player, this.switch1) && Phaser.Input.Keyboard.JustDown(interactKey))
         {
             switch1On = !switch1On;
@@ -264,29 +235,6 @@ class LevelTwo extends Phaser.Scene {
             this.time.delayedCall(500, () => {
                 isPicking = false
             }, null, this);
-            if(switch1On)
-            {
-                this.leftDoorAnim.play('open');
-            }
-            else
-            {
-                this.leftDoorAnim.alpha = 1;
-                this.leftDoorAnim.playReverse('open');
-            }
-            this.leftDoorAnim.on('animationcomplete', () => {    
-                if(switch1On)
-                {
-                    this.leftDoorAnim.alpha = 0;
-                }
-                else
-                {
-                    this.leftDoorAnim.setFrame(0);
-                }
-            });
-        }
-        if(switch2On)
-        {
-            this.RightDoorAnim.alpha = 0;
         }
     }
 
