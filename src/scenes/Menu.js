@@ -33,11 +33,12 @@ class Menu extends Phaser.Scene {
         if(startKey.isDown)
         {
             //DEBUG ONLY
-            //this.scene.start("levelTwo");
+            this.scene.start("levelTwo");
 
             playerX = L0StartX;
             playerY = L0StartY;
-            this.scene.start("tutorialLevelNew");
+            password = false;
+            //this.scene.start("tutorialLevelNew");
         }
     }
 }
