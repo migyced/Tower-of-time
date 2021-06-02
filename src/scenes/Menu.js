@@ -11,19 +11,20 @@ class Menu extends Phaser.Scene {
         this.load.audio("pickupSeed", "assets/pickupSeed.wav");
         this.load.audio("timeTravel", "assets/timeTravelSFX.wav");
         this.load.audio("doorUnlock", "assets/doorUnlock.mp3");
+        this.load.spritesheet("backgroundPic", "assets/background.png", {frameWidth: 960, frameHeight: 720, startingFrame: 0, endFrame: 7});
     }
 
     create()
     {
-        //temp title design
-        let titleConfig = {
-            fontFamily: 'Courier',
-            fontSize: '40px',
-            color: '#FFFFFF'
-        }
-        this.add.text(game.config.width/2 - 175, game.config.height/2 - 200, "Tower of Time", titleConfig);
-        this.add.text(game.config.width/2 - 150, game.config.height/2, "Press Enter to start game!").setOrigin(0);
-
+        this.background = new VFX(this, 0, 0, "backgroundPic", 0);
+        //animation config
+        this.anims.create({
+            key: 'animate',
+            frames: this.anims.generateFrameNames('backgroundPic', {start: 0, end: 7}),
+            frameRate: 10,
+            repeat: -1
+        });
+        this.background.anims.play('animate', true);
         //Handle scene transition
         startKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
     }

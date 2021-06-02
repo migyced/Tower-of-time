@@ -26,7 +26,7 @@ class LevelTwo extends Phaser.Scene {
         this.load.image("seed", "assets/testseed.png");
         this.load.image("tree", "assets/testtree.png");
         this.load.image("background", "assets/towerpresent.png");
-        this.load.image("switch", "assets/switch.png");
+        this.load.spritesheet("switch", "assets/switch1.png", {frameWidth: 64, frameHeight: 64, startingFrame: 0, endFrame: 5});
         this.load.spritesheet("enemy", "assets/testenemy.png", {frameWidth: 24, frameHeight: 72, startingFrame: 0, endFrame: 1});
         this.load.spritesheet("timeTravelVFX", "assets/timeTravelVFX.png", {frameWidth: 960, frameHeight: 720, startingFrame: 0, endFrame: 11});
         this.load.spritesheet("doorAnim", "assets/doorAnimation.png", {frameWidth: 126, frameHeight: 168, startingFrame: 0, endFrame: 7});
@@ -95,8 +95,8 @@ class LevelTwo extends Phaser.Scene {
         this.ladder3 = new Background(this, ladderX, ladderStartY, 32, 150, "ladder", 1, false, true);
 
         //add interactive item/background
-        this.switch1 = new Background(this, game.config.width - 100, 488, 64, 64, "switch", 0, false, true);
-        this.switch2 = new Background(this, game.config.width - 270, 336, 64, 64, "switch", 0, false, true); //the broken switch one
+        this.switch1 = new Background(this, game.config.width - 100, 488, 64, 64, "switch", 3, false, true);
+        this.switch2 = new Background(this, game.config.width - 270, 336, 64, 64, "switch", 5, false, true); //the broken switch one
         this.door = new Background(this, game.config.width - 100, 25, 32, 75, "door", 0, false, true);
         this.ikey = new Item(this, game.config.width / 2 - 90, game.config.height - 70, "key", 0, "ikey", false);
 
@@ -170,10 +170,12 @@ class LevelTwo extends Phaser.Scene {
         if(switch1On)
         {
             this.enemy1.Stop();
+            this.switch1.setFrame(4);
         }
         else
         {
             this.enemy1.start();
+            this.switch1.setFrame(3);
         }
         //update animation
         if(isWalking)

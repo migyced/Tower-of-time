@@ -181,13 +181,24 @@ class LevelTwoPast extends Phaser.Scene {
                 this.changeTime();
             }, null, this); 
         }
+        //switch logic
         if(switch1On)
         {
             this.enemy1.Stop();
+            this.switch1.setFrame(0);
         }
         else
         {
             this.enemy1.start();
+            this.switch1.setFrame(1);
+        }
+        if(switch2On)
+        {
+            this.switch2.setFrame(0);
+        }
+        else
+        {
+            this.switch2.setFrame(1);
         }
         //update animation
         if(isWalking)
