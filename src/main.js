@@ -38,6 +38,7 @@ let enemy1Y = 95;
 //control input
 let leftKey, rightKey, climbKey, interactKey;
 let startKey, menuKey;
+let volume = 1;
 //Inventory variable
 let inventory = new Inventory();
 

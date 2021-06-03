@@ -36,11 +36,11 @@ class LevelOnePast extends Phaser.Scene {
         //add inventory
         this.inventory = this.add.sprite(game.config.width / 2 - 100, game.config.height - 70, "inventory");
         //add audio
-        this.timeTravel = this.sound.add("timeTravel");
-        this.hurt = this.sound.add("hurt");
-        this.pickupSeed = this.sound.add("pickupSeed");
-        this.pickupKey = this.sound.add("pickupKey");
-        this.doorUnlock = this.sound.add("doorUnlock");
+        this.timeTravel = this.sound.add("timeTravel", {volume: volume});
+        this.hurt = this.sound.add("hurt", {volume: volume});
+        this.pickupSeed = this.sound.add("pickupSeed", {volume: volume});
+        this.pickupKey = this.sound.add("pickupKey", {volume: volume});
+        this.doorUnlock = this.sound.add("doorUnlock", {volume: volume});
         //text config
         let infoConfig = {
             fontFamily: 'Courier',

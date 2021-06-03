@@ -42,11 +42,11 @@ class LevelTwoPast extends Phaser.Scene {
         //add background
         this.background = new Background(this, 0, 0, 960, 720, "background1", 0, false, true);
         //add audio
-        this.timeTravel = this.sound.add("timeTravel");
-        this.hurt = this.sound.add("hurt");
-        this.pickupSeed = this.sound.add("pickupSeed");
-        this.pickupKey = this.sound.add("pickupKey");
-        this.doorUnlock = this.sound.add("doorUnlock");
+        this.timeTravel = this.sound.add("timeTravel", {volume: volume});
+        this.hurt = this.sound.add("hurt", {volume: volume});
+        this.pickupSeed = this.sound.add("pickupSeed", {volume: volume});
+        this.pickupKey = this.sound.add("pickupKey", {volume: volume});
+        this.doorUnlock = this.sound.add("doorUnlock", {volume: volume});
         //text config
         let infoConfig = {
             fontFamily: 'Courier',
