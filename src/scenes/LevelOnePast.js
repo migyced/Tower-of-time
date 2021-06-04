@@ -6,10 +6,6 @@ class LevelOnePast extends Phaser.Scene {
 
     preload()
     {
-        this.load.audio("hurt", "assets/hurt.wav");
-        this.load.audio("pickupKey", "assets/pickupKey.wav");
-        this.load.audio("pickupSeed", "assets/pickupSeed.wav");
-        this.load.audio("timeTravel", "assets/timeTravelSFX.wav");
         this.load.spritesheet("player", "assets/testplayer.png", {frameWidth: 24, frameHeight: 72, startFrame: 0, endFrame: 27});
         //walking right animation - frames: [0-7]
         //walking left animation - frames: [8 - 15]
@@ -23,14 +19,12 @@ class LevelOnePast extends Phaser.Scene {
         this.load.image("key", "assets/testKey.png");
         this.load.image("door", "assets/testdoor.png");
         this.load.image("seed", "assets/testseed.png");
-        this.load.audio("doorUnlock", "assets/doorUnlock.mp3");
         this.load.image("background1", "assets/towerpast.png");
         this.load.spritesheet("timeTravelVFX", "assets/timeTravelVFX.png", {frameWidth: 960, frameHeight: 720, startingFrame: 0, endFrame: 11});
     }
 
     create()
     {
-        console.log("Past! LV1");
         //add background
         this.background = new Background(this, 0, 0, 960, 720, "background1", 0, false, true);
         //add inventory
@@ -195,7 +189,6 @@ class LevelOnePast extends Phaser.Scene {
         //climb check
         if(this.physics.overlap(this.player, [this.ladder1, this.ladder2, this.ladder3, this.ladder4, this.ladder6]) && climbKey.isDown)
         {
-            console.log("overlap");
             this.player.climb();
             this.player.body.setAllowGravity(false);
             //play climbing animation

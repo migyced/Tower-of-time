@@ -39,6 +39,8 @@ let enemy1Y = 95;
 let leftKey, rightKey, climbKey, interactKey;
 let startKey, menuKey;
 let volume = 1;
+let addBackgroundMusic = false;
+let backgroundMusic;
 //Inventory variable
 let inventory = new Inventory();
 

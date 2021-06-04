@@ -18,14 +18,12 @@ class Tutorial1 extends Phaser.Scene {
         this.load.image("inventory", "assets/testInventory.png");
         this.load.image("key", "assets/testKey.png");
         this.load.image("door", "assets/testdoor.png");
-        this.load.audio("doorUnlock", "assets/doorUnlock.mp3");
         this.load.image("background1", "assets/towerpast.png");
         this.load.spritesheet("timeTravelVFX", "assets/timeTravelVFX.png", {frameWidth: 960, frameHeight: 720, startingFrame: 0, endFrame: 11});
     }
 
     create()
     {
-        console.log("Past!");
         //add background
         this.background = new Background(this, 0, 0, 960, 720, "background1", 0, false, true);
         //add audio
@@ -152,7 +150,6 @@ class Tutorial1 extends Phaser.Scene {
         }
         if(this.physics.overlap(this.player, [this.ladder1, this.ladder2]) && climbKey.isDown)
         {
-            console.log("overlap");
             this.player.climb();
             this.player.body.setAllowGravity(false);
             //TODO:play climbing animation

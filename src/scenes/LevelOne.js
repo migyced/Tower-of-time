@@ -7,11 +7,6 @@ class LevelOne extends Phaser.Scene {
 
     preload()
     {
-        this.load.audio("hurt", "assets/hurt.wav");
-        this.load.audio("pickupKey", "assets/pickupKey.wav");
-        this.load.audio("pickupSeed", "assets/pickupSeed.wav");
-        this.load.audio("timeTravel", "assets/timeTravelSFX.wav");
-        this.load.audio("doorUnlock", "assets/doorUnlock.mp3");
         this.load.spritesheet("player", "assets/testplayer.png", {frameWidth: 24, frameHeight: 72, startFrame: 0, endFrame: 27});
         //walking right animation - frames: [0-7]
         //walking left animation - frames: [8 - 15]
@@ -32,7 +27,6 @@ class LevelOne extends Phaser.Scene {
 
     create()
     {
-        console.log("Present! LV1");
         //add background
         this.background = new Background(this, 0, 0, 960, 720, "background", 0, false, true);
         //add inventory
@@ -189,7 +183,6 @@ class LevelOne extends Phaser.Scene {
         //climb check
         if(this.physics.overlap(this.player, [this.ladder2, this.ladder3, this.ladder4, this.ladder6]) && climbKey.isDown)
         {
-            console.log("overlap");
             this.player.climb();
             this.player.body.setAllowGravity(false);
             //play climbing animation
@@ -198,7 +191,7 @@ class LevelOne extends Phaser.Scene {
         else
         {
             this.player.body.setAllowGravity(true);
-            if(isClimbing)
+            if(isClimbing && !this.physics.overlap(this.player, this.tree))
             {
                 isClimbing = false;
             }
@@ -229,13 +222,18 @@ class LevelOne extends Phaser.Scene {
             this.tree.alpha = 1;
             if(this.physics.overlap(this.player, this.tree) && climbKey.isDown)
             {
-                console.log("overlap");
                 this.player.climb();
                 this.player.body.setAllowGravity(false);
+                //play climbing animation
+                isClimbing = true;
             }
             else
             {
                 this.player.body.setAllowGravity(true);
+                if(isClimbing && !this.physics.overlap(this.player, [this.ladder2, this.ladder3, this.ladder4, this.ladder6]))
+                {
+                    isClimbing = false;
+                }
             }
         }
     }

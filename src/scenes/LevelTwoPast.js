@@ -6,10 +6,6 @@ class LevelTwoPast extends Phaser.Scene {
 
     preload()
     {
-        this.load.audio("hurt", "assets/hurt.wav");
-        this.load.audio("pickupKey", "assets/pickupKey.wav");
-        this.load.audio("pickupSeed", "assets/pickupSeed.wav");
-        this.load.audio("timeTravel", "assets/timeTravelSFX.wav");
         this.load.spritesheet("player", "assets/testplayer.png", {frameWidth: 24, frameHeight: 72, startFrame: 0, endFrame: 27});
         //walking right animation - frames: [0-7]
         //walking left animation - frames: [8 - 15]
@@ -23,7 +19,6 @@ class LevelTwoPast extends Phaser.Scene {
         this.load.image("key", "assets/testKey.png");
         this.load.image("door", "assets/testdoor.png");
         this.load.image("seed", "assets/testseed.png");
-        this.load.audio("doorUnlock", "assets/doorUnlock.mp3");
         this.load.image("background1", "assets/towerpast.png");
         this.load.image("switch", "assets/switch.png");
         this.load.spritesheet("enemy", "assets/testenemy.png", {frameWidth: 24, frameHeight: 72, startingFrame: 0, endFrame: 1});
@@ -33,7 +28,6 @@ class LevelTwoPast extends Phaser.Scene {
 
     create()
     {
-        console.log("Past! LV2");
         //set keyboard combo
         this.input.keyboard.createCombo('E476');
         this.input.keyboard.on('keycombomatch', function (event) {
@@ -174,6 +168,7 @@ class LevelTwoPast extends Phaser.Scene {
         //change Time
         if(Phaser.Input.Keyboard.JustDown(switchTimeKey))
         {
+            this.enemy1.Stop();
             this.timeTravelVFX.anims.playReverse('travel', true);
             this.timeTravelVFX.alpha = 1;
             this.timeTravel.play();
@@ -221,7 +216,6 @@ class LevelTwoPast extends Phaser.Scene {
         //climb check
         if(this.physics.overlap(this.player, [this.ladder1, this.ladder2]) && climbKey.isDown)
         {
-            console.log("overlap");
             this.player.climb();
             this.player.body.setAllowGravity(false);
             //play climbing animation
@@ -230,7 +224,6 @@ class LevelTwoPast extends Phaser.Scene {
         //special logic with ladder 3
         else if(this.physics.overlap(this.player, [this.ladder3]) && climbKey.isDown)
         {
-            console.log("overlap");
             if(this.ladder3.x >= 200  && this.ladder3.x < 219)
             {
                 this.player.climb();
@@ -286,6 +279,7 @@ class LevelTwoPast extends Phaser.Scene {
         //Switch Logic
         if(this.physics.overlap(this.player, this.switch1) && Phaser.Input.Keyboard.JustDown(interactKey))
         {
+            this.doorUnlock.play();
             switch1On = !switch1On;
             //Play pickup animations
             isPicking = true;
@@ -315,6 +309,7 @@ class LevelTwoPast extends Phaser.Scene {
         }
         if(this.physics.overlap(this.player, this.switch2) && Phaser.Input.Keyboard.JustDown(interactKey))
         {
+            this.doorUnlock.play();
             switch2On = !switch2On;
             //Play pickup animations
             isPicking = true;

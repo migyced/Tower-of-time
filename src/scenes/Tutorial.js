@@ -20,14 +20,12 @@ class Tutorial extends Phaser.Scene {
         this.load.image("door", "assets/testdoor.png");
         this.load.spritesheet("enemy", "assets/testenemy.png", {frameWidth: 24, frameHeight: 72, startingFrame: 0, endFrame: 1});
         this.load.spritesheet("blocker", "assets/testblocker.png", {frameWidth: 32, frameHeight: 100, startingFrame: 0, endFrame: 1});
-        this.load.audio("doorUnlock", "assets/doorUnlock.mp3");
         this.load.image("background", "assets/towerpresent.png");
         this.load.spritesheet("timeTravelVFX", "assets/timeTravelVFX.png", {frameWidth: 960, frameHeight: 720, startingFrame: 0, endFrame: 11});
     }
 
     create()
     {
-        console.log("Present!");
         //add background
         this.background = new Background(this, 0, 0, 960, 720, "background", 0, false, true);
         //add audio
@@ -152,6 +150,7 @@ class Tutorial extends Phaser.Scene {
         //change Time
         if(Phaser.Input.Keyboard.JustDown(switchTimeKey))
         {
+            this.enemy1.Stop();
             this.timeTravelVFX.anims.play('travel', true);
             this.timeTravelVFX.alpha = 1;
             this.timeTravel.play();
@@ -162,7 +161,6 @@ class Tutorial extends Phaser.Scene {
         //climb check
         if(this.physics.overlap(this.player, [this.ladder1, this.ladder2]) && climbKey.isDown)
         {
-            console.log("overlap");
             this.player.climb();
             this.player.body.setAllowGravity(false);
             //play climbing animation

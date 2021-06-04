@@ -12,6 +12,8 @@ class Menu extends Phaser.Scene {
         this.load.audio("timeTravel", "assets/timeTravelSFX.wav");
         this.load.audio("doorUnlock", "assets/doorUnlock.mp3");
         this.load.spritesheet("backgroundPic", "assets/background.png", {frameWidth: 960, frameHeight: 720, startingFrame: 0, endFrame: 7});
+        //The background music is from Royalty free music https://www.epidemicsound.com/track/D4dvkLSAYV/
+        this.load.audio("backgroundMusic", "assets/BackgroundMusic.mp3")
     }
 
     create()
@@ -24,6 +26,13 @@ class Menu extends Phaser.Scene {
             frameRate: 10,
             repeat: -1
         });
+        if(!addBackgroundMusic)
+        {
+            addBackgroundMusic = true
+            backgroundMusic = this.sound.add("backgroundMusic", {volume: 0.3});
+            backgroundMusic.loop = true;
+            backgroundMusic.play();
+        }
         this.background.anims.play('animate', true);
         //Handle scene transition
         startKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
@@ -34,12 +43,12 @@ class Menu extends Phaser.Scene {
         if(startKey.isDown)
         {
             //DEBUG ONLY
-            //this.scene.start("levelTwo");
+            this.scene.start("levelTwo");
 
             playerX = L0StartX;
             playerY = L0StartY;
             password = false;
-            this.scene.start("tutorialLevelNew");
+            //this.scene.start("tutorialLevelNew");
         }
     }
 }
