@@ -29,7 +29,7 @@ class LevelTwoPast extends Phaser.Scene {
     create()
     {
         //set keyboard combo
-        this.input.keyboard.createCombo('E476');
+        this.input.keyboard.createCombo('ECDLXXVI');
         this.input.keyboard.on('keycombomatch', function (event) {
             password = true;
         });
