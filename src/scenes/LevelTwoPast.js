@@ -58,7 +58,7 @@ class LevelTwoPast extends Phaser.Scene {
         //Add password text
         this.hint1 = this.add.text(game.config.width/2, game.config.height/2 - 25, "X", hintConfig).setOrigin(0);
         this.hint2 = this.add.text(140, 50, "CDL", hintConfig).setOrigin(0);
-        this.passwordError = this.add.text(200 , 0, "Please Enter 3 Digit Password, use 'E' to enter again/confirm!", infoConfig).setOrigin(0);
+        this.passwordError = this.add.text(200 , 0, "Please Enter 7 Digit Password, use 'E' to enter again/confirm!", infoConfig).setOrigin(0);
         this.passwordError.alpha = 0;
         //add door animation
         this.leftDoorAnim = new VFX(this, 102, 20, "doorAnim", 0);
